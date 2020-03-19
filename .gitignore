@@ -4,7 +4,7 @@
 *.dll
 *.so
 *.dylib
-./kn-source
+kn-source
 
 # Test binary, built with `go test -c`
 *.test

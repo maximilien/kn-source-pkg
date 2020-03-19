@@ -21,6 +21,8 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 )
 
+type RunE = func(cmd *cobra.Command, args []string) error
+
 type KnSourceParams struct {
 	Output      io.Writer
 	KubeCfgPath string
@@ -33,4 +35,11 @@ type CommandFactory interface {
 	DeleteCommand(params *KnSourceParams) *cobra.Command
 	UpdateCommand(params *KnSourceParams) *cobra.Command
 	DescribeCommand(params *KnSourceParams) *cobra.Command
+}
+
+type RunEFactory interface {
+	CreateRunE() RunE
+	DeleteRunE() RunE
+	UpdateRunE() RunE
+	DescribeRunE() RunE
 }
