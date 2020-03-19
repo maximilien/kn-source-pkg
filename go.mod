@@ -3,6 +3,7 @@ module github.com/maximilien/kn-source-pkg
 require (
 	github.com/google/go-cmp v0.3.1 // indirect
 	github.com/spf13/cobra v0.0.5
+	github.com/spf13/pflag v1.0.5
 	golang.org/x/crypto v0.0.0-20191206172530-e9b2fee46413 // indirect
 	golang.org/x/sys v0.0.0-20191010194322-b09406accb47 // indirect
 	google.golang.org/appengine v1.6.2 // indirect

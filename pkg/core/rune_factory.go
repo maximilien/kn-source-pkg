@@ -22,8 +22,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-type DefautRunEFactory struct {
-}
+type DefautRunEFactory struct{}
 
 func NewDefaultRunEFactory() commands.RunEFactory {
 	return &DefautRunEFactory{}

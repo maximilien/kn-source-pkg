@@ -18,6 +18,7 @@ import (
 	"io"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 	"k8s.io/client-go/tools/clientcmd"
 )
 
@@ -35,6 +36,13 @@ type CommandFactory interface {
 	DeleteCommand(params *KnSourceParams) *cobra.Command
 	UpdateCommand(params *KnSourceParams) *cobra.Command
 	DescribeCommand(params *KnSourceParams) *cobra.Command
+}
+
+type FlagsFactory interface {
+	CreateFlags() *pflag.FlagSet
+	DeleteFlags() *pflag.FlagSet
+	UpdateFlags() *pflag.FlagSet
+	DescribeFlags() *pflag.FlagSet
 }
 
 type RunEFactory interface {

@@ -23,8 +23,9 @@ import (
 
 func main() {
 	commandFactory := core.NewDefaultCommandFactory()
+	flagsFactory := core.NewDefaultFlagsFactory()
 	runEFactory := core.NewDefaultRunEFactory()
-	err := core.NewKnSourceCommand(commandFactory, runEFactory).Execute()
+	err := core.NewKnSourceCommand(commandFactory, flagsFactory, runEFactory).Execute()
 	if err != nil {
 		if err.Error() != "subcommand is required" {
 			fmt.Fprintln(os.Stderr, err)

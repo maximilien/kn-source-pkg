@@ -21,8 +21,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-type DefautCommandFactory struct {
-}
+type DefautCommandFactory struct{}
 
 func NewDefaultCommandFactory() commands.CommandFactory {
 	return &DefautCommandFactory{}

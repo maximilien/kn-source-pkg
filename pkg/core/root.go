@@ -18,9 +18,12 @@ import (
 	"github.com/maximilien/kn-source-pkg/pkg/commands"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 )
 
-func NewKnSourceCommand(commandFactory commands.CommandFactory, runEFactory commands.RunEFactory) *cobra.Command {
+func NewKnSourceCommand(commandFactory commands.CommandFactory,
+	flagsFactory commands.FlagsFactory,
+	runEFactory commands.RunEFactory) *cobra.Command {
 	params := &commands.KnSourceParams{}
 
 	rootCmd := &cobra.Command{
@@ -45,18 +48,22 @@ func NewKnSourceCommand(commandFactory commands.CommandFactory, runEFactory comm
 	//TODO: add common source commands flags here
 
 	createCmd := commandFactory.CreateCommand(params)
+	createCmd.Flags().AddFlagSet(flagsFactory.CreateFlags())
 	createCmd.RunE = runEFactory.CreateRunE()
 	rootCmd.AddCommand(createCmd)
 
 	deleteCmd := commandFactory.DeleteCommand(params)
+	deleteCmd.Flags().AddFlagSet(flagsFactory.DeleteFlags())
 	deleteCmd.RunE = runEFactory.DeleteRunE()
 	rootCmd.AddCommand(deleteCmd)
 
 	updateCmd := commandFactory.UpdateCommand(params)
+	updateCmd.Flags().AddFlagSet(flagsFactory.UpdateFlags())
 	updateCmd.RunE = runEFactory.UpdateRunE()
 	rootCmd.AddCommand(updateCmd)
 
 	describeCmd := commandFactory.DescribeCommand(params)
+	describeCmd.Flags().AddFlagSet(flagsFactory.DescribeFlags())
 	describeCmd.RunE = runEFactory.DescribeRunE()
 	rootCmd.AddCommand(describeCmd)
 
@@ -64,4 +71,12 @@ func NewKnSourceCommand(commandFactory commands.CommandFactory, runEFactory comm
 	rootCmd.InitDefaultHelpCmd()
 
 	return rootCmd
+}
+
+// Private
+
+func addFlags(cmd *cobra.Command, flags []*pflag.Flag) {
+	for _, flag := range flags {
+		cmd.Flags().AddFlag(flag)
+	}
 }
