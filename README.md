@@ -1,2 +1,3 @@
 # kn-source-pkg
-Common `pkg` for `kn-source-*` plugins
+
+Common sources for `kn` eventing source plugins
