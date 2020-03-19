@@ -19,12 +19,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// NewSourceCreateCommand for creating event sources
-func NewSourceCreateCommand(params *commands.KnSourceParams) *cobra.Command {
-	sourceCreateCmd := &cobra.Command{
+// NewCreateCommand for creating event sources
+func NewCreateCommand(params *commands.KnSourceParams) *cobra.Command {
+	createCmd := &cobra.Command{
 		Use:     "create NAME [flags]",
 		Short:   "create {{.Name}} source",
 		Example: "{{.CreateExample}}",
 	}
-	return sourceCreateCmd
+	return createCmd
 }

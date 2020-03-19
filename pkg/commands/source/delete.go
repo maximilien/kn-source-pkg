@@ -19,12 +19,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// NewSourceDeleteCommand for creating event sources
-func NewSourceDeleteCommand(params *commands.KnSourceParams) *cobra.Command {
-	sourceDeleteCmd := &cobra.Command{
+// NewDeleteCommand for creating event sources
+func NewDeleteCommand(params *commands.KnSourceParams) *cobra.Command {
+	deleteCmd := &cobra.Command{
 		Use:     "delete NAME [flags]",
 		Short:   "delete {{.Name}} source",
 		Example: "{{.DeleteExample}}",
 	}
-	return sourceDeleteCmd
+	return deleteCmd
 }

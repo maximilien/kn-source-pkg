@@ -19,12 +19,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// NewSourceUpdateCommand for creating event sources
-func NewSourceUpdateCommand(params *commands.KnSourceParams) *cobra.Command {
-	sourceUpdateCmd := &cobra.Command{
+// NewUpdateCommand for creating event sources
+func NewUpdateCommand(params *commands.KnSourceParams) *cobra.Command {
+	updateCmd := &cobra.Command{
 		Use:     "update NAME [flags]",
 		Short:   "update {{.Name}} source",
 		Example: "{{.UpdateExample}}",
 	}
-	return sourceUpdateCmd
+	return updateCmd
 }

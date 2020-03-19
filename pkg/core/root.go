@@ -20,7 +20,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func NewKnSourceCommand(sourceCommandFactory commands.SourceCommandFactory) *cobra.Command {
+func NewKnSourceCommand(commandFactory commands.CommandFactory) *cobra.Command {
 	params := &commands.KnSourceParams{}
 
 	rootCmd := &cobra.Command{
@@ -44,10 +44,10 @@ func NewKnSourceCommand(sourceCommandFactory commands.SourceCommandFactory) *cob
 
 	//TODO: add common source commands flags here
 
-	rootCmd.AddCommand(sourceCommandFactory.CreateCommand(params))
-	rootCmd.AddCommand(sourceCommandFactory.DeleteCommand(params))
-	rootCmd.AddCommand(sourceCommandFactory.UpdateCommand(params))
-	rootCmd.AddCommand(sourceCommandFactory.DescribeCommand(params))
+	rootCmd.AddCommand(commandFactory.CreateCommand(params))
+	rootCmd.AddCommand(commandFactory.DeleteCommand(params))
+	rootCmd.AddCommand(commandFactory.UpdateCommand(params))
+	rootCmd.AddCommand(commandFactory.DescribeCommand(params))
 
 	// Initialize default `help` cmd early to prevent unknown command errors
 	rootCmd.InitDefaultHelpCmd()

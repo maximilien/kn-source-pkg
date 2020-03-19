@@ -21,25 +21,25 @@ import (
 	"github.com/spf13/cobra"
 )
 
-type DefautSourceCommandFactory struct {
+type DefautCommandFactory struct {
 }
 
-func NewDefaultSourceCommandFactory() commands.SourceCommandFactory {
-	return &DefautSourceCommandFactory{}
+func NewDefaultCommandFactory() commands.CommandFactory {
+	return &DefautCommandFactory{}
 }
 
-func (f *DefautSourceCommandFactory) CreateCommand(params *commands.KnSourceParams) *cobra.Command {
-	return source.NewSourceCreateCommand(params)
+func (f *DefautCommandFactory) CreateCommand(params *commands.KnSourceParams) *cobra.Command {
+	return source.NewCreateCommand(params)
 }
 
-func (f *DefautSourceCommandFactory) DeleteCommand(params *commands.KnSourceParams) *cobra.Command {
-	return source.NewSourceDeleteCommand(params)
+func (f *DefautCommandFactory) DeleteCommand(params *commands.KnSourceParams) *cobra.Command {
+	return source.NewDeleteCommand(params)
 }
 
-func (f *DefautSourceCommandFactory) UpdateCommand(params *commands.KnSourceParams) *cobra.Command {
-	return source.NewSourceUpdateCommand(params)
+func (f *DefautCommandFactory) UpdateCommand(params *commands.KnSourceParams) *cobra.Command {
+	return source.NewUpdateCommand(params)
 }
 
-func (f *DefautSourceCommandFactory) DescribeCommand(params *commands.KnSourceParams) *cobra.Command {
-	return source.NewSourceDescribeCommand(params)
+func (f *DefautCommandFactory) DescribeCommand(params *commands.KnSourceParams) *cobra.Command {
+	return source.NewDescribeCommand(params)
 }

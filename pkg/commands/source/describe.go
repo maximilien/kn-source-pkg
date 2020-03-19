@@ -19,12 +19,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// NewSourceDescribeCommand for creating event sources
-func NewSourceDescribeCommand(params *commands.KnSourceParams) *cobra.Command {
-	sourceDescribeCmd := &cobra.Command{
+// NewDescribeCommand for creating event sources
+func NewDescribeCommand(params *commands.KnSourceParams) *cobra.Command {
+	describeCmd := &cobra.Command{
 		Use:     "describe NAME [flags]",
 		Short:   "describe {{.Name}} source",
 		Example: "{{.DescribeExample}}",
 	}
-	return sourceDescribeCmd
+	return describeCmd
 }

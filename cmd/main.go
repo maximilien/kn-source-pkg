@@ -22,7 +22,7 @@ import (
 )
 
 func main() {
-	factory := core.NewDefaultSourceCommandFactory()
+	factory := core.NewDefaultCommandFactory()
 	err := core.NewKnSourceCommand(factory).Execute()
 	if err != nil {
 		if err.Error() != "subcommand is required" {

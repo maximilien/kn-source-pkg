@@ -28,7 +28,7 @@ type KnSourceParams struct {
 	ClientConfig clientcmd.ClientConfig
 }
 
-type SourceCommandFactory interface {
+type CommandFactory interface {
 	CreateCommand(params *KnSourceParams) *cobra.Command
 	DeleteCommand(params *KnSourceParams) *cobra.Command
 	UpdateCommand(params *KnSourceParams) *cobra.Command
