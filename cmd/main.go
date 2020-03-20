@@ -19,12 +19,13 @@ import (
 	"os"
 
 	"github.com/maximilien/kn-source-pkg/pkg/core"
+	"github.com/maximilien/kn-source-pkg/pkg/factories"
 )
 
 func main() {
-	commandFactory := core.NewDefaultCommandFactory()
-	flagsFactory := core.NewDefaultFlagsFactory()
-	runEFactory := core.NewDefaultRunEFactory()
+	commandFactory := factories.NewDefaultCommandFactory()
+	flagsFactory := factories.NewDefaultFlagsFactory()
+	runEFactory := factories.NewDefaultRunEFactory()
 	err := core.NewKnSourceCommand(commandFactory, flagsFactory, runEFactory).Execute()
 	if err != nil {
 		if err.Error() != "subcommand is required" {

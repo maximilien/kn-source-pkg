@@ -131,7 +131,7 @@ go_build() {
 }
 
 go_test() {
-  local test_output=$(mktemp /tmp/kn-client-test-output.XXXXXX)
+  local test_output=$(mktemp /tmp/kn-source-test-output.XXXXXX)
 
   local red=""
   local reset=""
@@ -159,7 +159,7 @@ check_license() {
   local required_keywords=("Authors" "Apache License" "LICENSE-2.0")
   local extensions_to_check=("sh" "go" "yaml" "yml" "json")
 
-  local check_output=$(mktemp /tmp/kn-client-licence-check.XXXXXX)
+  local check_output=$(mktemp /tmp/kn-source-licence-check.XXXXXX)
   for ext in "${extensions_to_check[@]}"; do
     find . -name "*.$ext" -a \! -path "./vendor/*" -a \! -path "./.*" -print0 |
       while IFS= read -r -d '' path; do

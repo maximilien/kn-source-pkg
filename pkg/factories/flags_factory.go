@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package core
+package factories
 
 import (
 	"github.com/maximilien/kn-source-pkg/pkg/commands"
