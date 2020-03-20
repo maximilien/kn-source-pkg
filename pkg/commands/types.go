@@ -32,7 +32,7 @@ type KnSourceParams struct {
 }
 
 type CommandFactory interface {
-	CreateSource() *cobra.Command
+	SourceCommand() *cobra.Command
 
 	CreateCommand(params *KnSourceParams) *cobra.Command
 	DeleteCommand(params *KnSourceParams) *cobra.Command

@@ -26,7 +26,7 @@ func NewKnSourceCommand(commandFactory commands.CommandFactory,
 	runEFactory commands.RunEFactory) *cobra.Command {
 	params := &commands.KnSourceParams{}
 
-	rootCmd := commandFactory.CreateSource()
+	rootCmd := commandFactory.SourceCommand()
 
 	// Disable docs header
 	rootCmd.DisableAutoGenTag = true

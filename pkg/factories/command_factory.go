@@ -27,7 +27,7 @@ func NewDefaultCommandFactory() commands.CommandFactory {
 	return &DefautCommandFactory{}
 }
 
-func (f *DefautCommandFactory) CreateSource() *cobra.Command {
+func (f *DefautCommandFactory) SourceCommand() *cobra.Command {
 	return source.NewSourceCommand()
 }
 
