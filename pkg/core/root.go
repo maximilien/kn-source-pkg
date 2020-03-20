@@ -26,20 +26,16 @@ func NewKnSourceCommand(commandFactory commands.CommandFactory,
 	runEFactory commands.RunEFactory) *cobra.Command {
 	params := &commands.KnSourceParams{}
 
-	rootCmd := &cobra.Command{
-		Use:   "source",
-		Short: "Knative eventing {{.Name}} source plugin",
-		Long:  "Manage your Knative {{.Name}} eventing sources",
+	rootCmd := commandFactory.CreateSource()
 
-		// Disable docs header
-		DisableAutoGenTag: true,
+	// Disable docs header
+	rootCmd.DisableAutoGenTag = true
 
-		// Affects children as well
-		SilenceUsage: true,
+	// Affects children as well
+	rootCmd.SilenceUsage = true
 
-		// Prevents Cobra from dealing with errors as we deal with them in main.go
-		SilenceErrors: true,
-	}
+	// Prevents Cobra from dealing with errors as we deal with them in main.go
+	rootCmd.SilenceErrors = true
 
 	if params.Output != nil {
 		rootCmd.SetOutput(params.Output)
