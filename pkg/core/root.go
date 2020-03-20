@@ -21,7 +21,8 @@ import (
 	"github.com/spf13/pflag"
 )
 
-func NewKnSourceCommand(commandFactory commands.CommandFactory,
+func NewKnSourceCommand(knSourceParams *commands.KnSourceParams,
+	commandFactory commands.CommandFactory,
 	flagsFactory commands.FlagsFactory,
 	runEFactory commands.RunEFactory) *cobra.Command {
 	params := &commands.KnSourceParams{}
@@ -43,22 +44,22 @@ func NewKnSourceCommand(commandFactory commands.CommandFactory,
 
 	//TODO: add common source commands flags here
 
-	createCmd := commandFactory.CreateCommand(params)
+	createCmd := commandFactory.CreateCommand()
 	createCmd.Flags().AddFlagSet(flagsFactory.CreateFlags())
 	createCmd.RunE = runEFactory.CreateRunE()
 	rootCmd.AddCommand(createCmd)
 
-	deleteCmd := commandFactory.DeleteCommand(params)
+	deleteCmd := commandFactory.DeleteCommand()
 	deleteCmd.Flags().AddFlagSet(flagsFactory.DeleteFlags())
 	deleteCmd.RunE = runEFactory.DeleteRunE()
 	rootCmd.AddCommand(deleteCmd)
 
-	updateCmd := commandFactory.UpdateCommand(params)
+	updateCmd := commandFactory.UpdateCommand()
 	updateCmd.Flags().AddFlagSet(flagsFactory.UpdateFlags())
 	updateCmd.RunE = runEFactory.UpdateRunE()
 	rootCmd.AddCommand(updateCmd)
 
-	describeCmd := commandFactory.DescribeCommand(params)
+	describeCmd := commandFactory.DescribeCommand()
 	describeCmd.Flags().AddFlagSet(flagsFactory.DescribeFlags())
 	describeCmd.RunE = runEFactory.DescribeRunE()
 	rootCmd.AddCommand(describeCmd)

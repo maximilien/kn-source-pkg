@@ -23,10 +23,14 @@ import (
 )
 
 func main() {
-	commandFactory := factories.NewDefaultCommandFactory()
-	flagsFactory := factories.NewDefaultFlagsFactory()
-	runEFactory := factories.NewDefaultRunEFactory()
-	err := core.NewKnSourceCommand(commandFactory, flagsFactory, runEFactory).Execute()
+	knSourceParams := factories.NewDefaultParamsFactory().Create()
+
+	clientFactory := factories.NewDefaultClientFactory(knSourceParams)
+	commandFactory := factories.NewDefaultCommandFactory(knSourceParams)
+	flagsFactory := factories.NewDefaultFlagsFactory(knSourceParams)
+	runEFactory := factories.NewDefaultRunEFactory(clientFactory)
+
+	err := core.NewKnSourceCommand(knSourceParams, commandFactory, flagsFactory, runEFactory).Execute()
 	if err != nil {
 		if err.Error() != "subcommand is required" {
 			fmt.Fprintln(os.Stderr, err)

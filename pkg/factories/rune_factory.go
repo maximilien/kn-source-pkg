@@ -22,36 +22,44 @@ import (
 	"github.com/spf13/cobra"
 )
 
-type DefautRunEFactory struct{}
+type DefautRunEFactory struct {
+	knSourceClient commands.KnSourceClient
+}
 
-func NewDefaultRunEFactory() commands.RunEFactory {
-	return &DefautRunEFactory{}
+func NewDefaultRunEFactory(clientFactory commands.ClientFactory) commands.RunEFactory {
+	return &DefautRunEFactory{
+		knSourceClient: clientFactory.Create(),
+	}
+}
+
+func (f *DefautRunEFactory) KnSourceClient() commands.KnSourceClient {
+	return f.knSourceClient
 }
 
 func (f *DefautRunEFactory) CreateRunE() commands.RunE {
 	return func(cmd *cobra.Command, args []string) error {
-		fmt.Printf("create RunE called: %s, args: %#v\n", cmd.Name(), args)
+		fmt.Printf("create RunE called: %s, args: %#v, client: %#v\n", cmd.Name(), args, f.knSourceClient)
 		return nil
 	}
 }
 
 func (f *DefautRunEFactory) DeleteRunE() commands.RunE {
 	return func(cmd *cobra.Command, args []string) error {
-		fmt.Printf("delete RunE called: %s, args: %#v\n", cmd.Name(), args)
+		fmt.Printf("delete RunE called: %s, args: %#v, client: %#v\n", cmd.Name(), args, f.knSourceClient)
 		return nil
 	}
 }
 
 func (f *DefautRunEFactory) UpdateRunE() commands.RunE {
 	return func(cmd *cobra.Command, args []string) error {
-		fmt.Printf("update RunE called: %s, args: %#v\n", cmd.Name(), args)
+		fmt.Printf("update RunE called: %s, args: %#v, client: %#v\n", cmd.Name(), args, f.knSourceClient)
 		return nil
 	}
 }
 
 func (f *DefautRunEFactory) DescribeRunE() commands.RunE {
 	return func(cmd *cobra.Command, args []string) error {
-		fmt.Printf("describe RunE called: %s, args: %#v\n", cmd.Name(), args)
+		fmt.Printf("describe RunE called: %s, args: %#v, client: %#v\n", cmd.Name(), args, f.knSourceClient)
 		return nil
 	}
 }

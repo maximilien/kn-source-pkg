@@ -15,11 +15,12 @@
 package source
 
 import (
+	"github.com/maximilien/kn-source-pkg/pkg/commands"
 	"github.com/spf13/cobra"
 )
 
 // NewSourceCommand as the root group command
-func NewSourceCommand() *cobra.Command {
+func NewSourceCommand(knSourceParams *commands.KnSourceParams) *cobra.Command {
 	createCmd := &cobra.Command{
 		Use:   "source",
 		Short: "Knative eventing {{.Name}} source plugin",

@@ -15,29 +15,41 @@
 package commands
 
 import (
-	"io"
+	kncmd "knative.dev/client/pkg/kn/commands"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
-	"k8s.io/client-go/tools/clientcmd"
 )
 
 type RunE = func(cmd *cobra.Command, args []string) error
 
 type KnSourceParams struct {
-	Output      io.Writer
-	KubeCfgPath string
+	kncmd.KnParams
+}
 
-	ClientConfig clientcmd.ClientConfig
+type KnSourceClient interface {
+	KnSourceParams() *KnSourceParams
+}
+
+type ParamsFactory interface {
+	Create() *KnSourceParams
+}
+
+type ClientFactory interface {
+	Create() KnSourceClient
+
+	KnSourceParams() *KnSourceParams
 }
 
 type CommandFactory interface {
 	SourceCommand() *cobra.Command
 
-	CreateCommand(params *KnSourceParams) *cobra.Command
-	DeleteCommand(params *KnSourceParams) *cobra.Command
-	UpdateCommand(params *KnSourceParams) *cobra.Command
-	DescribeCommand(params *KnSourceParams) *cobra.Command
+	CreateCommand() *cobra.Command
+	DeleteCommand() *cobra.Command
+	UpdateCommand() *cobra.Command
+	DescribeCommand() *cobra.Command
+
+	KnSourceParams() *KnSourceParams
 }
 
 type FlagsFactory interface {
@@ -45,6 +57,8 @@ type FlagsFactory interface {
 	DeleteFlags() *pflag.FlagSet
 	UpdateFlags() *pflag.FlagSet
 	DescribeFlags() *pflag.FlagSet
+
+	KnSourceParams() *KnSourceParams
 }
 
 type RunEFactory interface {
@@ -52,4 +66,6 @@ type RunEFactory interface {
 	DeleteRunE() RunE
 	UpdateRunE() RunE
 	DescribeRunE() RunE
+
+	KnSourceClient() KnSourceClient
 }

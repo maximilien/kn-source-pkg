@@ -20,10 +20,18 @@ import (
 	"github.com/spf13/pflag"
 )
 
-type DefautFlagsFactory struct{}
+type DefautFlagsFactory struct {
+	knSourceParams *commands.KnSourceParams
+}
 
-func NewDefaultFlagsFactory() commands.FlagsFactory {
-	return &DefautFlagsFactory{}
+func NewDefaultFlagsFactory(knSourceParams *commands.KnSourceParams) commands.FlagsFactory {
+	return &DefautFlagsFactory{
+		knSourceParams: knSourceParams,
+	}
+}
+
+func (f *DefautFlagsFactory) KnSourceParams() *commands.KnSourceParams {
+	return f.knSourceParams
 }
 
 func (f *DefautFlagsFactory) CreateFlags() *pflag.FlagSet {
