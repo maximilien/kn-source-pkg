@@ -30,13 +30,14 @@ type KnSourceClient interface {
 }
 
 type ParamsFactory interface {
-	Create() *KnSourceParams
+	KnSource
+	CreateKnSourceParams() *KnSourceParams
 }
 
 type ClientFactory interface {
 	KnSource
 
-	Create() KnSourceClient
+	CreateKnSourceClient() KnSourceClient
 }
 
 type CommandFactory interface {

@@ -30,7 +30,7 @@ type DefautRunEFactory struct {
 func NewDefaultRunEFactory(knSourceParams *types.KnSourceParams, clientFactory types.ClientFactory) types.RunEFactory {
 	return &DefautRunEFactory{
 		knSourceParams: knSourceParams,
-		knSourceClient: clientFactory.Create(),
+		knSourceClient: clientFactory.CreateKnSourceClient(),
 	}
 }
 

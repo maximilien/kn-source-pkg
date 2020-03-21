@@ -23,7 +23,7 @@ import (
 )
 
 func main() {
-	knSourceParams := factories.NewDefaultParamsFactory().Create()
+	knSourceParams := factories.NewDefaultParamsFactory().CreateKnSourceParams()
 
 	clientFactory := factories.NewDefaultClientFactory(knSourceParams)
 	commandFactory := factories.NewDefaultCommandFactory(knSourceParams)

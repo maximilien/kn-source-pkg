@@ -18,14 +18,20 @@ import (
 	"github.com/maximilien/kn-source-pkg/pkg/types"
 )
 
-type DefautParamsFactory struct{}
+type DefautParamsFactory struct {
+	knSourceParams *types.KnSourceParams
+}
 
 func NewDefaultParamsFactory() types.ParamsFactory {
 	return &DefautParamsFactory{}
 }
 
-func (f *DefautParamsFactory) Create() *types.KnSourceParams {
-	knSourceParams := &types.KnSourceParams{}
-	knSourceParams.Initialize()
-	return knSourceParams
+func (f *DefautParamsFactory) KnSourceParams() *types.KnSourceParams {
+	return f.knSourceParams
+}
+
+func (f *DefautParamsFactory) CreateKnSourceParams() *types.KnSourceParams {
+	f.knSourceParams = &types.KnSourceParams{}
+	f.knSourceParams.Initialize()
+	return f.knSourceParams
 }

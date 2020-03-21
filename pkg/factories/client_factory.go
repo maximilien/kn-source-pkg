@@ -29,10 +29,10 @@ func NewDefaultClientFactory(knSourceParams *types.KnSourceParams) types.ClientF
 	}
 }
 
-func (f *DefautClientFactory) Create() types.KnSourceClient {
-	return client.NewKnSourceClient(f.knSourceParams)
-}
-
 func (f *DefautClientFactory) KnSourceParams() *types.KnSourceParams {
 	return f.knSourceParams
+}
+
+func (f *DefautClientFactory) CreateKnSourceClient() types.KnSourceClient {
+	return client.NewKnSourceClient(f.knSourceParams)
 }
