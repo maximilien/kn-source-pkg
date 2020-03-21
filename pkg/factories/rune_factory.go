@@ -44,28 +44,28 @@ func (f *DefautRunEFactory) KnSourceClient() types.KnSourceClient {
 
 func (f *DefautRunEFactory) CreateRunE() types.RunE {
 	return func(cmd *cobra.Command, args []string) error {
-		fmt.Printf("create RunE called: %s, args: %#v, client: %#v\n", cmd.Name(), args, f.knSourceClient)
+		fmt.Printf("%s RunE called: args: %#v, client: %#v\n", cmd.Name(), args, f.knSourceClient)
 		return nil
 	}
 }
 
 func (f *DefautRunEFactory) DeleteRunE() types.RunE {
 	return func(cmd *cobra.Command, args []string) error {
-		fmt.Printf("delete RunE called: %s, args: %#v, client: %#v\n", cmd.Name(), args, f.knSourceClient)
+		fmt.Printf("%s RunE called: args: %#v, client: %#v\n", cmd.Name(), args, f.knSourceClient)
 		return nil
 	}
 }
 
 func (f *DefautRunEFactory) UpdateRunE() types.RunE {
 	return func(cmd *cobra.Command, args []string) error {
-		fmt.Printf("update RunE called: %s, args: %#v, client: %#v\n", cmd.Name(), args, f.knSourceClient)
+		fmt.Printf("%s RunE called: args: %#v, client: %#v\n", cmd.Name(), args, f.knSourceClient)
 		return nil
 	}
 }
 
 func (f *DefautRunEFactory) DescribeRunE() types.RunE {
 	return func(cmd *cobra.Command, args []string) error {
-		fmt.Printf("describe RunE called: %s, args: %#v, client: %#v\n", cmd.Name(), args, f.knSourceClient)
+		fmt.Printf("%s RunE called: args: %#v, client: %#v\n", cmd.Name(), args, f.knSourceClient)
 		return nil
 	}
 }
