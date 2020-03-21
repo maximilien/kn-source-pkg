@@ -23,13 +23,19 @@ import (
 )
 
 type DefautRunEFactory struct {
+	knSourceParams *types.KnSourceParams
 	knSourceClient types.KnSourceClient
 }
 
-func NewDefaultRunEFactory(clientFactory types.ClientFactory) types.RunEFactory {
+func NewDefaultRunEFactory(knSourceParams *types.KnSourceParams, clientFactory types.ClientFactory) types.RunEFactory {
 	return &DefautRunEFactory{
+		knSourceParams: knSourceParams,
 		knSourceClient: clientFactory.Create(),
 	}
+}
+
+func (f *DefautRunEFactory) KnSourceParams() *types.KnSourceParams {
+	return f.knSourceParams
 }
 
 func (f *DefautRunEFactory) KnSourceClient() types.KnSourceClient {

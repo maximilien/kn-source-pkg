@@ -21,8 +21,12 @@ import (
 
 type RunE = func(cmd *cobra.Command, args []string) error
 
-type KnSourceClient interface {
+type KnSource interface {
 	KnSourceParams() *KnSourceParams
+}
+
+type KnSourceClient interface {
+	KnSource
 }
 
 type ParamsFactory interface {
@@ -30,32 +34,34 @@ type ParamsFactory interface {
 }
 
 type ClientFactory interface {
-	Create() KnSourceClient
+	KnSource
 
-	KnSourceParams() *KnSourceParams
+	Create() KnSourceClient
 }
 
 type CommandFactory interface {
+	KnSource
+
 	SourceCommand() *cobra.Command
 
 	CreateCommand() *cobra.Command
 	DeleteCommand() *cobra.Command
 	UpdateCommand() *cobra.Command
 	DescribeCommand() *cobra.Command
-
-	KnSourceParams() *KnSourceParams
 }
 
 type FlagsFactory interface {
+	KnSource
+
 	CreateFlags() *pflag.FlagSet
 	DeleteFlags() *pflag.FlagSet
 	UpdateFlags() *pflag.FlagSet
 	DescribeFlags() *pflag.FlagSet
-
-	KnSourceParams() *KnSourceParams
 }
 
 type RunEFactory interface {
+	KnSource
+
 	CreateRunE() RunE
 	DeleteRunE() RunE
 	UpdateRunE() RunE

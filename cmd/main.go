@@ -28,7 +28,7 @@ func main() {
 	clientFactory := factories.NewDefaultClientFactory(knSourceParams)
 	commandFactory := factories.NewDefaultCommandFactory(knSourceParams)
 	flagsFactory := factories.NewDefaultFlagsFactory(knSourceParams)
-	runEFactory := factories.NewDefaultRunEFactory(clientFactory)
+	runEFactory := factories.NewDefaultRunEFactory(knSourceParams, clientFactory)
 
 	err := core.NewKnSourceCommand(knSourceParams, commandFactory, flagsFactory, runEFactory).Execute()
 	if err != nil {
