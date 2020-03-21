@@ -15,19 +15,19 @@
 package client
 
 import (
-	"github.com/maximilien/kn-source-pkg/pkg/commands"
+	"github.com/maximilien/kn-source-pkg/pkg/types"
 )
 
 type knSourceClient struct {
-	knSourceParams *commands.KnSourceParams
+	knSourceParams *types.KnSourceParams
 }
 
-func NewKnSourceClient(knSourceParams *commands.KnSourceParams) commands.KnSourceClient {
+func NewKnSourceClient(knSourceParams *types.KnSourceParams) types.KnSourceClient {
 	return &knSourceClient{
 		knSourceParams: knSourceParams,
 	}
 }
 
-func (client *knSourceClient) KnSourceParams() *commands.KnSourceParams {
+func (client *knSourceClient) KnSourceParams() *types.KnSourceParams {
 	return client.knSourceParams
 }

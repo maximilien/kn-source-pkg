@@ -16,23 +16,23 @@ package factories
 
 import (
 	"github.com/maximilien/kn-source-pkg/pkg/client"
-	"github.com/maximilien/kn-source-pkg/pkg/commands"
+	"github.com/maximilien/kn-source-pkg/pkg/types"
 )
 
 type DefautClientFactory struct {
-	knSourceParams *commands.KnSourceParams
+	knSourceParams *types.KnSourceParams
 }
 
-func NewDefaultClientFactory(knSourceParams *commands.KnSourceParams) commands.ClientFactory {
+func NewDefaultClientFactory(knSourceParams *types.KnSourceParams) types.ClientFactory {
 	return &DefautClientFactory{
 		knSourceParams: knSourceParams,
 	}
 }
 
-func (f *DefautClientFactory) Create() commands.KnSourceClient {
+func (f *DefautClientFactory) Create() types.KnSourceClient {
 	return client.NewKnSourceClient(f.knSourceParams)
 }
 
-func (f *DefautClientFactory) KnSourceParams() *commands.KnSourceParams {
+func (f *DefautClientFactory) KnSourceParams() *types.KnSourceParams {
 	return f.knSourceParams
 }

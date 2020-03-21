@@ -15,23 +15,23 @@
 package factories
 
 import (
-	"github.com/maximilien/kn-source-pkg/pkg/commands"
 	"github.com/maximilien/kn-source-pkg/pkg/commands/source"
+	"github.com/maximilien/kn-source-pkg/pkg/types"
 
 	"github.com/spf13/cobra"
 )
 
 type DefautCommandFactory struct {
-	knSourceParams *commands.KnSourceParams
+	knSourceParams *types.KnSourceParams
 }
 
-func NewDefaultCommandFactory(knSourceParams *commands.KnSourceParams) commands.CommandFactory {
+func NewDefaultCommandFactory(knSourceParams *types.KnSourceParams) types.CommandFactory {
 	return &DefautCommandFactory{
 		knSourceParams: knSourceParams,
 	}
 }
 
-func (f *DefautCommandFactory) KnSourceParams() *commands.KnSourceParams {
+func (f *DefautCommandFactory) KnSourceParams() *types.KnSourceParams {
 	return f.knSourceParams
 }
 

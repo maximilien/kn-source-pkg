@@ -15,17 +15,17 @@
 package factories
 
 import (
-	"github.com/maximilien/kn-source-pkg/pkg/commands"
+	"github.com/maximilien/kn-source-pkg/pkg/types"
 )
 
 type DefautParamsFactory struct{}
 
-func NewDefaultParamsFactory() commands.ParamsFactory {
+func NewDefaultParamsFactory() types.ParamsFactory {
 	return &DefautParamsFactory{}
 }
 
-func (f *DefautParamsFactory) Create() *commands.KnSourceParams {
-	knSourceParams := &commands.KnSourceParams{}
+func (f *DefautParamsFactory) Create() *types.KnSourceParams {
+	knSourceParams := &types.KnSourceParams{}
 	knSourceParams.Initialize()
 	return knSourceParams
 }

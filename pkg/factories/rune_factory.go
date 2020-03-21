@@ -17,47 +17,47 @@ package factories
 import (
 	"fmt"
 
-	"github.com/maximilien/kn-source-pkg/pkg/commands"
+	"github.com/maximilien/kn-source-pkg/pkg/types"
 
 	"github.com/spf13/cobra"
 )
 
 type DefautRunEFactory struct {
-	knSourceClient commands.KnSourceClient
+	knSourceClient types.KnSourceClient
 }
 
-func NewDefaultRunEFactory(clientFactory commands.ClientFactory) commands.RunEFactory {
+func NewDefaultRunEFactory(clientFactory types.ClientFactory) types.RunEFactory {
 	return &DefautRunEFactory{
 		knSourceClient: clientFactory.Create(),
 	}
 }
 
-func (f *DefautRunEFactory) KnSourceClient() commands.KnSourceClient {
+func (f *DefautRunEFactory) KnSourceClient() types.KnSourceClient {
 	return f.knSourceClient
 }
 
-func (f *DefautRunEFactory) CreateRunE() commands.RunE {
+func (f *DefautRunEFactory) CreateRunE() types.RunE {
 	return func(cmd *cobra.Command, args []string) error {
 		fmt.Printf("create RunE called: %s, args: %#v, client: %#v\n", cmd.Name(), args, f.knSourceClient)
 		return nil
 	}
 }
 
-func (f *DefautRunEFactory) DeleteRunE() commands.RunE {
+func (f *DefautRunEFactory) DeleteRunE() types.RunE {
 	return func(cmd *cobra.Command, args []string) error {
 		fmt.Printf("delete RunE called: %s, args: %#v, client: %#v\n", cmd.Name(), args, f.knSourceClient)
 		return nil
 	}
 }
 
-func (f *DefautRunEFactory) UpdateRunE() commands.RunE {
+func (f *DefautRunEFactory) UpdateRunE() types.RunE {
 	return func(cmd *cobra.Command, args []string) error {
 		fmt.Printf("update RunE called: %s, args: %#v, client: %#v\n", cmd.Name(), args, f.knSourceClient)
 		return nil
 	}
 }
 
-func (f *DefautRunEFactory) DescribeRunE() commands.RunE {
+func (f *DefautRunEFactory) DescribeRunE() types.RunE {
 	return func(cmd *cobra.Command, args []string) error {
 		fmt.Printf("describe RunE called: %s, args: %#v, client: %#v\n", cmd.Name(), args, f.knSourceClient)
 		return nil

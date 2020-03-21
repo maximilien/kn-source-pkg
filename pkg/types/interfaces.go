@@ -12,20 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package commands
+package types
 
 import (
-	kncmd "knative.dev/client/pkg/kn/commands"
-
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )
 
 type RunE = func(cmd *cobra.Command, args []string) error
-
-type KnSourceParams struct {
-	kncmd.KnParams
-}
 
 type KnSourceClient interface {
 	KnSourceParams() *KnSourceParams

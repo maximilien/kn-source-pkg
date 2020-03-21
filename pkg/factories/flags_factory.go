@@ -15,22 +15,22 @@
 package factories
 
 import (
-	"github.com/maximilien/kn-source-pkg/pkg/commands"
+	"github.com/maximilien/kn-source-pkg/pkg/types"
 
 	"github.com/spf13/pflag"
 )
 
 type DefautFlagsFactory struct {
-	knSourceParams *commands.KnSourceParams
+	knSourceParams *types.KnSourceParams
 }
 
-func NewDefaultFlagsFactory(knSourceParams *commands.KnSourceParams) commands.FlagsFactory {
+func NewDefaultFlagsFactory(knSourceParams *types.KnSourceParams) types.FlagsFactory {
 	return &DefautFlagsFactory{
 		knSourceParams: knSourceParams,
 	}
 }
 
-func (f *DefautFlagsFactory) KnSourceParams() *commands.KnSourceParams {
+func (f *DefautFlagsFactory) KnSourceParams() *types.KnSourceParams {
 	return f.knSourceParams
 }
 

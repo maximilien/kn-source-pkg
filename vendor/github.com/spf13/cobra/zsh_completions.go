@@ -14,7 +14,6 @@ import (
 
 const (
 	zshCompArgumentAnnotation   = "cobra_annotations_zsh_completion_argument_annotation"
-	zshCompArgumentCustomComp   = "cobra_annotations_zsh_completion_argument_custom_completion"
 	zshCompArgumentFilenameComp = "cobra_annotations_zsh_completion_argument_file_completion"
 	zshCompArgumentWordComp     = "cobra_annotations_zsh_completion_argument_word_completion"
 	zshCompDirname              = "cobra_annotations_zsh_dirname"
@@ -80,8 +79,6 @@ function {{genZshFuncName .}} {
 {{define "Main" -}}
 #compdef _{{.Name}} {{.Name}}
 
-{{.ZshCompletionFunction}}
-
 {{template "selectCmdTemplate" .}}
 {{end}}
 `
@@ -120,26 +117,6 @@ func (c *Command) GenZshCompletion(w io.Writer) error {
 		return fmt.Errorf("error creating zsh completion template: %v", err)
 	}
 	return tmpl.Execute(w, c.Root())
-}
-
-// MarkZshCompPositionalArgumentCustom marks the specified argument (first
-// argument is 1) as custom.
-func (c *Command) MarkZshCompPositionalArgumentCustom(argPosition int, function string) error {
-	if argPosition < 1 {
-		return fmt.Errorf("Invalid argument position (%d)", argPosition)
-	}
-	annotation, err := c.zshCompGetArgsAnnotations()
-	if err != nil {
-		return err
-	}
-	if c.zshcompArgsAnnotationnIsDuplicatePosition(annotation, argPosition) {
-		return fmt.Errorf("Duplicate annotation for positional argument at index %d", argPosition)
-	}
-	annotation[argPosition] = zshCompArgHint{
-		Tipe:    zshCompArgumentCustomComp,
-		Options: []string{function},
-	}
-	return c.zshCompSetArgsAnnotations(annotation)
 }
 
 // MarkZshCompPositionalArgumentFile marks the specified argument (first
@@ -231,8 +208,6 @@ func zshCompRenderZshCompArgHint(i int, z zshCompArgHint) (string, error) {
 			words = append(words, fmt.Sprintf("%q", w))
 		}
 		return fmt.Sprintf(`'%d: :(%s)'`, i, strings.Join(words, " ")), nil
-	case zshCompArgumentCustomComp:
-		return fmt.Sprintf(`'%d: :%s'`, i, z.Options[0]), nil
 	default:
 		return "", fmt.Errorf("Invalid zsh argument completion annotation: %s", t)
 	}
@@ -335,7 +310,7 @@ func zshCompGenFlagEntryExtras(f *pflag.Flag) string {
 		return ""
 	}
 
-	extras := ":()" // allow options for flag (even without assistance)
+	extras := ":" // allow options for flag (even without assistance)
 	for key, values := range f.Annotations {
 		switch key {
 		case zshCompDirname:
@@ -345,8 +320,6 @@ func zshCompGenFlagEntryExtras(f *pflag.Flag) string {
 			for _, pattern := range values {
 				extras = extras + fmt.Sprintf(` -g "%s"`, pattern)
 			}
-		case BashCompCustom:
-			extras = ": :" + values[0]
 		}
 	}
 
@@ -359,7 +332,5 @@ func zshCompFlagCouldBeSpecifiedMoreThenOnce(f *pflag.Flag) bool {
 }
 
 func zshCompQuoteFlagDescription(s string) string {
-	return strings.NewReplacer("'", `'\''`,
-		"[", `\[`,
-		"]", `\]`).Replace(s)
+	return strings.Replace(s, "'", `'\''`, -1)
 }

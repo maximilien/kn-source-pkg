@@ -15,17 +15,17 @@
 package core
 
 import (
-	"github.com/maximilien/kn-source-pkg/pkg/commands"
+	"github.com/maximilien/kn-source-pkg/pkg/types"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )
 
-func NewKnSourceCommand(knSourceParams *commands.KnSourceParams,
-	commandFactory commands.CommandFactory,
-	flagsFactory commands.FlagsFactory,
-	runEFactory commands.RunEFactory) *cobra.Command {
-	params := &commands.KnSourceParams{}
+func NewKnSourceCommand(knSourceParams *types.KnSourceParams,
+	commandFactory types.CommandFactory,
+	flagsFactory types.FlagsFactory,
+	runEFactory types.RunEFactory) *cobra.Command {
+	params := &types.KnSourceParams{}
 
 	rootCmd := commandFactory.SourceCommand()
 

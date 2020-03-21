@@ -1,4 +1,4 @@
-// Copyright © 2019 The Knative Authors
+// Copyright © 2018 The Knative Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,19 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package source
+package types
 
 import (
-	"github.com/maximilien/kn-source-pkg/pkg/types"
-	"github.com/spf13/cobra"
+	"knative.dev/client/pkg/kn/commands"
 )
 
-// NewCreateCommand for creating event sources
-func NewCreateCommand(params *types.KnSourceParams) *cobra.Command {
-	createCmd := &cobra.Command{
-		Use:     "create NAME [flags]",
-		Short:   "create {{.Name}} source",
-		Example: "{{.CreateExample}}",
-	}
-	return createCmd
+type KnSourceParams struct {
+	commands.KnParams
 }
