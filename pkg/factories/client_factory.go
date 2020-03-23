@@ -33,6 +33,6 @@ func (f *DefautClientFactory) KnSourceParams() *types.KnSourceParams {
 	return f.knSourceParams
 }
 
-func (f *DefautClientFactory) CreateKnSourceClient() types.KnSourceClient {
-	return client.NewKnSourceClient(f.knSourceParams)
+func (f *DefautClientFactory) CreateKnSourceClient(namespace string) types.KnSourceClient {
+	return client.NewKnSourceClient(f.knSourceParams, namespace)
 }

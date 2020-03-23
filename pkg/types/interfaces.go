@@ -27,6 +27,7 @@ type KnSource interface {
 
 type KnSourceClient interface {
 	KnSource
+	Namespace() string
 }
 
 type ParamsFactory interface {
@@ -37,7 +38,7 @@ type ParamsFactory interface {
 type ClientFactory interface {
 	KnSource
 
-	CreateKnSourceClient() KnSourceClient
+	CreateKnSourceClient(namespace string) KnSourceClient
 }
 
 type CommandFactory interface {
@@ -68,5 +69,5 @@ type RunEFactory interface {
 	UpdateRunE() RunE
 	DescribeRunE() RunE
 
-	KnSourceClient() KnSourceClient
+	KnSourceClientFactory() ClientFactory
 }

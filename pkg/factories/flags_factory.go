@@ -18,6 +18,7 @@ import (
 	"github.com/maximilien/kn-source-pkg/pkg/types"
 
 	"github.com/spf13/pflag"
+	"knative.dev/client/pkg/kn/commands"
 )
 
 type DefautFlagsFactory struct {
@@ -36,7 +37,8 @@ func (f *DefautFlagsFactory) KnSourceParams() *types.KnSourceParams {
 
 func (f *DefautFlagsFactory) CreateFlags() *pflag.FlagSet {
 	flagSet := pflag.NewFlagSet("create", pflag.ExitOnError)
-	flagSet.Int("i", 1234, "help message for i flag")
+	commands.AddNamespaceFlags(flagSet, false)
+	f.knSourceParams.AddFlags(flagSet)
 	return flagSet
 }
 
