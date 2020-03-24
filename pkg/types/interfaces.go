@@ -70,4 +70,5 @@ type RunEFactory interface {
 	DescribeRunE() RunE
 
 	KnSourceClientFactory() ClientFactory
+	KnSourceClient(cmd *cobra.Command) (KnSourceClient, error)
 }

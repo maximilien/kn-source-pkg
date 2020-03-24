@@ -47,9 +47,9 @@ func (f *DefautFlagsFactory) DeleteFlags() *pflag.FlagSet {
 }
 
 func (f *DefautFlagsFactory) UpdateFlags() *pflag.FlagSet {
-	return pflag.NewFlagSet("create", pflag.ExitOnError)
+	return pflag.NewFlagSet("update", pflag.ExitOnError)
 }
 
 func (f *DefautFlagsFactory) DescribeFlags() *pflag.FlagSet {
-	return pflag.NewFlagSet("create", pflag.ExitOnError)
+	return pflag.NewFlagSet("describe", pflag.ExitOnError)
 }
