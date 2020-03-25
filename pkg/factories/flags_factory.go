@@ -22,17 +22,17 @@ import (
 )
 
 type DefautFlagsFactory struct {
-	knSourceParams *types.KnSourceParams
+	knSourceFactory types.KnSourceFactory
 }
 
-func NewDefaultFlagsFactory(knSourceParams *types.KnSourceParams) types.FlagsFactory {
+func NewDefaultFlagsFactory(knSourceFactory types.KnSourceFactory) types.FlagsFactory {
 	return &DefautFlagsFactory{
-		knSourceParams: knSourceParams,
+		knSourceFactory: knSourceFactory,
 	}
 }
 
-func (f *DefautFlagsFactory) KnSourceParams() *types.KnSourceParams {
-	return f.knSourceParams
+func (f *DefautFlagsFactory) KnSourceFactory() types.KnSourceFactory {
+	return f.knSourceFactory
 }
 
 func (f *DefautFlagsFactory) CreateFlags() *pflag.FlagSet {
@@ -63,5 +63,4 @@ func (f *DefautFlagsFactory) DescribeFlags() *pflag.FlagSet {
 
 func (f *DefautFlagsFactory) addNamespaceFlag(flagSet *pflag.FlagSet) {
 	commands.AddNamespaceFlags(flagSet, false)
-	f.knSourceParams.AddFlags(flagSet)
 }

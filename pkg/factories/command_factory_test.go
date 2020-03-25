@@ -18,49 +18,48 @@ import (
 	"testing"
 
 	"gotest.tools/assert"
-
-	"github.com/maximilien/kn-source-pkg/pkg/types"
 )
 
 func TestNewDefaultCommandFactory(t *testing.T) {
-	commandFactory := NewDefaultCommandFactory(&types.KnSourceParams{})
+	knSourceFactory := NewDefaultKnSourceFactory()
+	commandFactory := NewDefaultCommandFactory(knSourceFactory)
 
 	assert.Assert(t, commandFactory != nil)
 }
 
-func TestKnSourceParams(t *testing.T) {
-	knSourceParams := &types.KnSourceParams{}
-	commandFactory := NewDefaultCommandFactory(knSourceParams)
+func TestKnSourceFactory(t *testing.T) {
+	knSourceFactory := NewDefaultKnSourceFactory()
+	commandFactory := NewDefaultCommandFactory(knSourceFactory)
 
-	assert.Equal(t, commandFactory.KnSourceParams(), knSourceParams)
+	assert.Equal(t, commandFactory.KnSourceFactory(), knSourceFactory)
 }
 
 func TestSourceCommand(t *testing.T) {
-	commandFactory := NewDefaultCommandFactory(&types.KnSourceParams{})
+	commandFactory := NewDefaultCommandFactory(NewDefaultKnSourceFactory())
 
 	assert.Assert(t, commandFactory.SourceCommand() != nil)
 }
 
 func TestCreateCommand(t *testing.T) {
-	commandFactory := NewDefaultCommandFactory(&types.KnSourceParams{})
+	commandFactory := NewDefaultCommandFactory(NewDefaultKnSourceFactory())
 
 	assert.Assert(t, commandFactory.CreateCommand() != nil)
 }
 
 func TestDeleteCommand(t *testing.T) {
-	commandFactory := NewDefaultCommandFactory(&types.KnSourceParams{})
+	commandFactory := NewDefaultCommandFactory(NewDefaultKnSourceFactory())
 
 	assert.Assert(t, commandFactory.DeleteCommand() != nil)
 }
 
 func TestUpdateCommand(t *testing.T) {
-	commandFactory := NewDefaultCommandFactory(&types.KnSourceParams{})
+	commandFactory := NewDefaultCommandFactory(NewDefaultKnSourceFactory())
 
 	assert.Assert(t, commandFactory.UpdateCommand() != nil)
 }
 
 func TestDescribeCommand(t *testing.T) {
-	commandFactory := NewDefaultCommandFactory(&types.KnSourceParams{})
+	commandFactory := NewDefaultCommandFactory(NewDefaultKnSourceFactory())
 
 	assert.Assert(t, commandFactory.DescribeCommand() != nil)
 }

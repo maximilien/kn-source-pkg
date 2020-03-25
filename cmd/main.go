@@ -24,13 +24,12 @@ import (
 
 func main() {
 	knSourceFactory := factories.NewDefaultKnSourceFactory()
-	knSourceParams := knSourceFactory.CreateKnSourceParams()
 
-	commandFactory := factories.NewDefaultCommandFactory(knSourceParams)
-	flagsFactory := factories.NewDefaultFlagsFactory(knSourceParams)
-	runEFactory := factories.NewDefaultRunEFactory(knSourceParams, knSourceFactory)
+	commandFactory := factories.NewDefaultCommandFactory(knSourceFactory)
+	flagsFactory := factories.NewDefaultFlagsFactory(knSourceFactory)
+	runEFactory := factories.NewDefaultRunEFactory(knSourceFactory)
 
-	err := core.NewKnSourceCommand(knSourceParams, commandFactory, flagsFactory, runEFactory).Execute()
+	err := core.NewKnSourceCommand(knSourceFactory, commandFactory, flagsFactory, runEFactory).Execute()
 	if err != nil {
 		if err.Error() != "subcommand is required" {
 			fmt.Fprintln(os.Stderr, err)

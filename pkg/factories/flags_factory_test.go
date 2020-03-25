@@ -18,43 +18,41 @@ import (
 	"testing"
 
 	"gotest.tools/assert"
-
-	"github.com/maximilien/kn-source-pkg/pkg/types"
 )
 
 func TestNewDefaultFlagsFactory(t *testing.T) {
-	flagsFactory := NewDefaultFlagsFactory(&types.KnSourceParams{})
+	flagsFactory := NewDefaultFlagsFactory(NewDefaultKnSourceFactory())
 
 	assert.Assert(t, flagsFactory != nil)
 }
 
-func TestFlagsFactory_KnSourceParams(t *testing.T) {
-	knSourceParams := &types.KnSourceParams{}
-	flagsFactory := NewDefaultFlagsFactory(knSourceParams)
+func TestFlagsFactory_KnSourceFactory(t *testing.T) {
+	knSourceFactory := NewDefaultKnSourceFactory()
+	flagsFactory := NewDefaultFlagsFactory(knSourceFactory)
 
-	assert.Equal(t, flagsFactory.KnSourceParams(), knSourceParams)
+	assert.Equal(t, flagsFactory.KnSourceFactory(), knSourceFactory)
 }
 
 func TestCreateFlags(t *testing.T) {
-	flagsFactory := NewDefaultFlagsFactory(&types.KnSourceParams{})
+	flagsFactory := NewDefaultFlagsFactory(NewDefaultKnSourceFactory())
 
 	assert.Assert(t, flagsFactory.CreateFlags() != nil)
 }
 
 func TestDeleteFlags(t *testing.T) {
-	flagsFactory := NewDefaultFlagsFactory(&types.KnSourceParams{})
+	flagsFactory := NewDefaultFlagsFactory(NewDefaultKnSourceFactory())
 
 	assert.Assert(t, flagsFactory.DeleteFlags() != nil)
 }
 
 func TestUpdateFlags(t *testing.T) {
-	flagsFactory := NewDefaultFlagsFactory(&types.KnSourceParams{})
+	flagsFactory := NewDefaultFlagsFactory(NewDefaultKnSourceFactory())
 
 	assert.Assert(t, flagsFactory.UpdateFlags() != nil)
 }
 
 func TestDescribeFlags(t *testing.T) {
-	flagsFactory := NewDefaultFlagsFactory(&types.KnSourceParams{})
+	flagsFactory := NewDefaultFlagsFactory(NewDefaultKnSourceFactory())
 
 	assert.Assert(t, flagsFactory.DescribeFlags() != nil)
 }

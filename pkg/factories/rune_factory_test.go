@@ -24,25 +24,25 @@ import (
 )
 
 func TestNewDefaultRunEFactory(t *testing.T) {
-	_, _, runEFactory := createDefaultRunEFactory()
+	runEFactory := createDefaultRunEFactory()
 
 	assert.Assert(t, runEFactory != nil)
 }
 
 func TestRunEFactory_KnSourceParams(t *testing.T) {
-	knSourceParams, _, runEFactory := createDefaultRunEFactory()
+	runEFactory := createDefaultRunEFactory()
 
-	assert.Equal(t, runEFactory.KnSourceParams(), knSourceParams)
+	assert.Assert(t, runEFactory.KnSourceFactory().KnSourceParams() != nil)
 }
 
 func KnSourceClientFactory(t *testing.T) {
-	_, clientFactory, runEFactory := createDefaultRunEFactory()
+	runEFactory := createDefaultRunEFactory()
 
-	assert.Equal(t, runEFactory.KnSourceFactory(), clientFactory)
+	assert.Assert(t, runEFactory.KnSourceFactory() != nil)
 }
 
 func KnSourceClient(t *testing.T) {
-	_, _, runEFactory := createDefaultRunEFactory()
+	runEFactory := createDefaultRunEFactory()
 
 	knSourceClient, err := runEFactory.KnSourceClient(&cobra.Command{})
 	assert.NilError(t, err)
@@ -50,33 +50,32 @@ func KnSourceClient(t *testing.T) {
 }
 
 func TestCreateRunE(t *testing.T) {
-	_, _, runEFactory := createDefaultRunEFactory()
+	runEFactory := createDefaultRunEFactory()
 
 	assert.Assert(t, runEFactory.CreateRunE() != nil)
 }
 
 func TestDeleteRunE(t *testing.T) {
-	_, _, runEFactory := createDefaultRunEFactory()
+	runEFactory := createDefaultRunEFactory()
 
 	assert.Assert(t, runEFactory.DeleteRunE() != nil)
 }
 
 func TestUpdateRunE(t *testing.T) {
-	_, _, runEFactory := createDefaultRunEFactory()
+	runEFactory := createDefaultRunEFactory()
 
 	assert.Assert(t, runEFactory.UpdateRunE() != nil)
 }
 
 func TestDescribeRunE(t *testing.T) {
-	_, _, runEFactory := createDefaultRunEFactory()
+	runEFactory := createDefaultRunEFactory()
 
 	assert.Assert(t, runEFactory.DescribeRunE() != nil)
 }
 
 // Private
 
-func createDefaultRunEFactory() (*types.KnSourceParams, types.KnSourceFactory, types.RunEFactory) {
+func createDefaultRunEFactory() types.RunEFactory {
 	knSourceFactory := NewDefaultKnSourceFactory()
-	knSourceParams := knSourceFactory.KnSourceParams()
-	return knSourceParams, knSourceFactory, NewDefaultRunEFactory(knSourceParams, knSourceFactory)
+	return NewDefaultRunEFactory(knSourceFactory)
 }
