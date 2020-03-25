@@ -23,14 +23,14 @@ import (
 )
 
 type DefautRunEFactory struct {
-	knSourceParams        *types.KnSourceParams
-	knSourceClientFactory types.ClientFactory
+	knSourceParams  *types.KnSourceParams
+	knSourceFactory types.KnSourceFactory
 }
 
-func NewDefaultRunEFactory(knSourceParams *types.KnSourceParams, clientFactory types.ClientFactory) types.RunEFactory {
+func NewDefaultRunEFactory(knSourceParams *types.KnSourceParams, knSourceFactory types.KnSourceFactory) types.RunEFactory {
 	return &DefautRunEFactory{
-		knSourceParams:        knSourceParams,
-		knSourceClientFactory: clientFactory,
+		knSourceParams:  knSourceParams,
+		knSourceFactory: knSourceFactory,
 	}
 }
 
@@ -38,8 +38,8 @@ func (f *DefautRunEFactory) KnSourceParams() *types.KnSourceParams {
 	return f.knSourceParams
 }
 
-func (f *DefautRunEFactory) KnSourceClientFactory() types.ClientFactory {
-	return f.knSourceClientFactory
+func (f *DefautRunEFactory) KnSourceFactory() types.KnSourceFactory {
+	return f.knSourceFactory
 }
 
 func (f *DefautRunEFactory) KnSourceClient(cmd *cobra.Command) (types.KnSourceClient, error) {
@@ -49,7 +49,7 @@ func (f *DefautRunEFactory) KnSourceClient(cmd *cobra.Command) (types.KnSourceCl
 		return nil, err
 	}
 
-	return f.knSourceClientFactory.CreateKnSourceClient(namespace), nil
+	return f.knSourceFactory.CreateKnSourceClient(namespace), nil
 }
 
 func (f *DefautRunEFactory) CreateRunE() types.RunE {

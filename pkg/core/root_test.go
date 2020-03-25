@@ -28,11 +28,11 @@ import (
 )
 
 func TestNewKnSourceCommand(t *testing.T) {
-	knSourceParams := &types.KnSourceParams{}
-	clientFactory := factories.NewDefaultClientFactory(knSourceParams)
+	knSourceFactory := factories.NewDefaultKnSourceFactory()
+	knSourceParams := knSourceFactory.KnSourceParams()
 	commandFactory := factories.NewDefaultCommandFactory(knSourceParams)
 	flagsFactory := factories.NewDefaultFlagsFactory(knSourceParams)
-	runEFactory := factories.NewDefaultRunEFactory(knSourceParams, clientFactory)
+	runEFactory := factories.NewDefaultRunEFactory(knSourceParams, knSourceFactory)
 	knSourceCmd := NewKnSourceCommand(knSourceParams, commandFactory, flagsFactory, runEFactory)
 
 	assert.Assert(t, knSourceCmd != nil)

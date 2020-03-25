@@ -38,7 +38,7 @@ func TestRunEFactory_KnSourceParams(t *testing.T) {
 func KnSourceClientFactory(t *testing.T) {
 	_, clientFactory, runEFactory := createDefaultRunEFactory()
 
-	assert.Equal(t, runEFactory.KnSourceClientFactory(), clientFactory)
+	assert.Equal(t, runEFactory.KnSourceFactory(), clientFactory)
 }
 
 func KnSourceClient(t *testing.T) {
@@ -75,8 +75,8 @@ func TestDescribeRunE(t *testing.T) {
 
 // Private
 
-func createDefaultRunEFactory() (*types.KnSourceParams, types.ClientFactory, types.RunEFactory) {
-	knSourceParams := &types.KnSourceParams{}
-	clientFactory := NewDefaultClientFactory(knSourceParams)
-	return knSourceParams, clientFactory, NewDefaultRunEFactory(knSourceParams, clientFactory)
+func createDefaultRunEFactory() (*types.KnSourceParams, types.KnSourceFactory, types.RunEFactory) {
+	knSourceFactory := NewDefaultKnSourceFactory()
+	knSourceParams := knSourceFactory.KnSourceParams()
+	return knSourceParams, knSourceFactory, NewDefaultRunEFactory(knSourceParams, knSourceFactory)
 }

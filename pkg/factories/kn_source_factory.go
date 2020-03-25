@@ -19,20 +19,28 @@ import (
 	"github.com/maximilien/kn-source-pkg/pkg/types"
 )
 
-type DefautClientFactory struct {
+type DefautKnSourceFactory struct {
 	knSourceParams *types.KnSourceParams
 }
 
-func NewDefaultClientFactory(knSourceParams *types.KnSourceParams) types.ClientFactory {
-	return &DefautClientFactory{
-		knSourceParams: knSourceParams,
-	}
+func NewDefaultKnSourceFactory() types.KnSourceFactory {
+	return &DefautKnSourceFactory{}
 }
 
-func (f *DefautClientFactory) KnSourceParams() *types.KnSourceParams {
+func (f *DefautKnSourceFactory) KnSourceParams() *types.KnSourceParams {
+	if f.knSourceParams == nil {
+		f.knSourceParams = f.CreateKnSourceParams()
+	}
+
 	return f.knSourceParams
 }
 
-func (f *DefautClientFactory) CreateKnSourceClient(namespace string) types.KnSourceClient {
+func (f *DefautKnSourceFactory) CreateKnSourceParams() *types.KnSourceParams {
+	f.knSourceParams = &types.KnSourceParams{}
+	f.knSourceParams.Initialize()
+	return f.knSourceParams
+}
+
+func (f *DefautKnSourceFactory) CreateKnSourceClient(namespace string) types.KnSourceClient {
 	return client.NewKnSourceClient(f.knSourceParams, namespace)
 }

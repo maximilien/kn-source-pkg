@@ -23,12 +23,12 @@ import (
 )
 
 func main() {
-	knSourceParams := factories.NewDefaultParamsFactory().CreateKnSourceParams()
+	knSourceFactory := factories.NewDefaultKnSourceFactory()
+	knSourceParams := knSourceFactory.CreateKnSourceParams()
 
-	clientFactory := factories.NewDefaultClientFactory(knSourceParams)
 	commandFactory := factories.NewDefaultCommandFactory(knSourceParams)
 	flagsFactory := factories.NewDefaultFlagsFactory(knSourceParams)
-	runEFactory := factories.NewDefaultRunEFactory(knSourceParams, clientFactory)
+	runEFactory := factories.NewDefaultRunEFactory(knSourceParams, knSourceFactory)
 
 	err := core.NewKnSourceCommand(knSourceParams, commandFactory, flagsFactory, runEFactory).Execute()
 	if err != nil {
