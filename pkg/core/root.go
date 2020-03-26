@@ -18,7 +18,6 @@ import (
 	"github.com/maximilien/kn-source-pkg/pkg/types"
 
 	"github.com/spf13/cobra"
-	"github.com/spf13/pflag"
 )
 
 func NewKnSourceCommand(knSourceFactory types.KnSourceFactory,
@@ -75,10 +74,4 @@ func NewKnSourceCommand(knSourceFactory types.KnSourceFactory,
 
 func addCommonFlags(knSourceParams *types.KnSourceParams, cmd *cobra.Command) {
 	knSourceParams.AddCommonFlags(cmd)
-}
-
-func addFlags(cmd *cobra.Command, flags []*pflag.Flag) {
-	for _, flag := range flags {
-		cmd.Flags().AddFlag(flag)
-	}
 }
