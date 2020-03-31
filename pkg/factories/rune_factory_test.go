@@ -20,7 +20,6 @@ import (
 	"gotest.tools/assert"
 
 	"github.com/maximilien/kn-source-pkg/pkg/types"
-	"github.com/spf13/cobra"
 )
 
 func TestNewDefaultRunEFactory(t *testing.T) {
@@ -44,9 +43,8 @@ func TestKnSourceClientFactory(t *testing.T) {
 func TestKnSourceClient(t *testing.T) {
 	runEFactory := createDefaultRunEFactory()
 
-	knSourceClient, err := runEFactory.KnSourceClient(&cobra.Command{})
-	assert.NilError(t, err)
-	assert.Assert(t, knSourceClient, nil)
+	knSourceClient := runEFactory.KnSourceClient("fake_namespace")
+	assert.Assert(t, knSourceClient != nil)
 }
 
 func TestCreateRunE(t *testing.T) {
