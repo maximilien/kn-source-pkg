@@ -35,13 +35,13 @@ func TestRunEFactory_KnSourceParams(t *testing.T) {
 	assert.Assert(t, runEFactory.KnSourceFactory().KnSourceParams() != nil)
 }
 
-func KnSourceClientFactory(t *testing.T) {
+func TestKnSourceClientFactory(t *testing.T) {
 	runEFactory := createDefaultRunEFactory()
 
 	assert.Assert(t, runEFactory.KnSourceFactory() != nil)
 }
 
-func KnSourceClient(t *testing.T) {
+func TestKnSourceClient(t *testing.T) {
 	runEFactory := createDefaultRunEFactory()
 
 	knSourceClient, err := runEFactory.KnSourceClient(&cobra.Command{})
