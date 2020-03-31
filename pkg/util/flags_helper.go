@@ -12,21 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package types
+package util
 
 import (
-	"github.com/spf13/cobra"
-	"knative.dev/client/pkg/kn/commands"
-	"knative.dev/client/pkg/kn/commands/flags"
+	corev1 "k8s.io/api/core/v1"
+	duckv1 "knative.dev/pkg/apis/duck/v1"
+	duckv1beta1 "knative.dev/pkg/apis/duck/v1beta1"
 )
 
-type KnSourceParams struct {
-	commands.KnParams
-
-	SinkFlag flags.SinkFlags
-}
-
-func (p *KnSourceParams) AddCommonFlags(cmd *cobra.Command) {
-	p.SinkFlag.Add(cmd)
-	commands.AddNamespaceFlags(cmd.Flags(), true)
+// SinkToDuckV1Beta1 converts a Destination from duckv1 to duckv1beta1
+func SinkToDuckV1Beta1(destination *duckv1.Destination) *duckv1beta1.Destination {
+	r := destination.Ref
+	return &duckv1beta1.Destination{
+		Ref: &corev1.ObjectReference{
+			Kind:       r.Kind,
+			Namespace:  r.Namespace,
+			Name:       r.Name,
+			APIVersion: r.APIVersion,
+		},
+		URI: destination.URI,
+	}
 }
