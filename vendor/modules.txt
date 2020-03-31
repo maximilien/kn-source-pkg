@@ -458,6 +458,7 @@ knative.dev/client/pkg/sources/v1alpha2
 knative.dev/client/pkg/util
 knative.dev/client/pkg/util/mock
 knative.dev/client/pkg/wait
+knative.dev/client/test/e2e
 # knative.dev/eventing v0.13.1
 knative.dev/eventing/pkg/apis/config
 knative.dev/eventing/pkg/apis/configs
