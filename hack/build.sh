@@ -87,7 +87,7 @@ run() {
   go_test
 
   echo "────────────────────────────────────────────"
-  ./kn-source
+  ./kn-source_pkg
 }
 
 
@@ -127,11 +127,11 @@ source_format() {
 
 go_build() {
   echo "🚧 Compile"
-  go build -mod=vendor -ldflags "$(build_flags $(basedir))" -o kn-source ./cmd/...
+  go build -mod=vendor -ldflags "$(build_flags $(basedir))" -o kn-source_pkg ./cmd/...
 }
 
 go_test() {
-  local test_output=$(mktemp /tmp/kn-source-test-output.XXXXXX)
+  local test_output=$(mktemp /tmp/kn-source_pkg-test-output.XXXXXX)
 
   local red=""
   local reset=""
@@ -159,7 +159,7 @@ check_license() {
   local required_keywords=("Authors" "Apache License" "LICENSE-2.0")
   local extensions_to_check=("sh" "go" "yaml" "yml" "json")
 
-  local check_output=$(mktemp /tmp/kn-source-licence-check.XXXXXX)
+  local check_output=$(mktemp /tmp/kn-source_pkg-licence-check.XXXXXX)
   for ext in "${extensions_to_check[@]}"; do
     find . -name "*.$ext" -a \! -path "./vendor/*" -a \! -path "./.*" -print0 |
       while IFS= read -r -d '' path; do
@@ -259,12 +259,12 @@ cross_build() {
   echo "⚔️ ${S}Compile"
 
   export CGO_ENABLED=0
-  echo "   🐧 kn-source-linux-amd64"
-  GOOS=linux GOARCH=amd64 go build -mod=vendor -ldflags "${ld_flags}" -o ./kn-source-linux-amd64 ./cmd/... || failed=1
-  echo "   🍏 kn-source-darwin-amd64"
-  GOOS=darwin GOARCH=amd64 go build -mod=vendor -ldflags "${ld_flags}" -o ./kn-source-darwin-amd64 ./cmd/... || failed=1
-  echo "   🎠 kn-source-windows-amd64.exe"
-  GOOS=windows GOARCH=amd64 go build -mod=vendor -ldflags "${ld_flags}" -o ./kn-source-windows-amd64.exe ./cmd/... || failed=1
+  echo "   🐧 kn-source_pkg-linux-amd64"
+  GOOS=linux GOARCH=amd64 go build -mod=vendor -ldflags "${ld_flags}" -o ./kn-source_pkg-linux-amd64 ./cmd/... || failed=1
+  echo "   🍏 kn-source_pkg-darwin-amd64"
+  GOOS=darwin GOARCH=amd64 go build -mod=vendor -ldflags "${ld_flags}" -o ./kn-source_pkg-darwin-amd64 ./cmd/... || failed=1
+  echo "   🎠 kn-source_pkg-windows-amd64.exe"
+  GOOS=windows GOARCH=amd64 go build -mod=vendor -ldflags "${ld_flags}" -o ./kn-source_pkg-windows-amd64.exe ./cmd/... || failed=1
 
   return ${failed}
 }
