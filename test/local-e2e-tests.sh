@@ -19,6 +19,8 @@ export PATH=$PWD:$PATH
 dir=$(dirname "${BASH_SOURCE[0]}")
 base=$(cd "$dir/.." && pwd)
 
+# TODO: Check and Install Kn if it's not present
+
 # Will create and delete this namespace (used for all tests, modify if you want a different one used)
 export KN_E2E_NAMESPACE=kne2etests
 

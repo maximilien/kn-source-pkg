@@ -24,11 +24,12 @@ type E2ETest struct {
 }
 
 // NewE2ETest for pluginName in pluginPath
-func NewE2ETest(pluginName string, pluginPath string) (*E2ETest, error) {
+func NewE2ETest(pluginName string, pluginPath string, install bool) (*E2ETest, error) {
 	e2eTest := &E2ETest{
 		knPlugin: &knPlugin{
 			pluginName: pluginName,
 			pluginPath: pluginPath,
+			install:    install,
 		},
 	}
 

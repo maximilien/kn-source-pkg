@@ -33,7 +33,7 @@ func TestBasicWorkflow(t *testing.T) {
 	currentDir, err := os.Getwd()
 	assert.NilError(t, err)
 
-	it, err := NewE2ETest("kn-source_pkg", filepath.Join(currentDir, "../.."))
+	it, err := NewE2ETest("kn-source_pkg", filepath.Join(currentDir, "../.."), false)
 	assert.NilError(t, err)
 	defer func() {
 		assert.NilError(t, it.KnTest().Teardown())
@@ -41,6 +41,9 @@ func TestBasicWorkflow(t *testing.T) {
 
 	r := test.NewKnRunResultCollector(t)
 	defer r.DumpIfFailed()
+
+	err = it.KnPlugin().Install()
+	assert.NilError(t, err)
 
 	t.Log("kn-source_pkg create 'source-name' with 'sink-name'")
 	it.knSourceCreate(t, r, "source-name", "sink-name")
@@ -52,7 +55,10 @@ func TestBasicWorkflow(t *testing.T) {
 	it.knSourceUpdate(t, r, "source-name", "new-sink-name")
 
 	t.Log("kn-source_pkg delete 'source-name'")
-	it.knSourceUpdate(t, r, "source-name", "sink-name")
+	it.knSourceDelete(t, r, "source-name", "sink-name")
+
+	err = it.KnPlugin().Uninstall()
+	assert.NilError(t, err)
 }
 
 // Private

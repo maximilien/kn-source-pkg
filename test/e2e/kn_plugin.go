@@ -30,16 +30,19 @@ type knPlugin struct {
 	kn         test.Kn
 	pluginName string
 	pluginPath string
+	install    bool
 }
 
 // Run the KnPlugin returning a KnRunResult
 func (kp *knPlugin) Run(args ...string) test.KnRunResult {
-	err := kp.Install()
-	if err != nil {
-		fmt.Printf("error installing kn plugin: %s\n", err.Error())
-		return test.KnRunResult{}
+	if kp.install {
+		err := kp.Install()
+		if err != nil {
+			fmt.Printf("error installing kn plugin: %s\n", err.Error())
+			return test.KnRunResult{}
+		}
+		defer kp.Uninstall()
 	}
-	defer kp.Uninstall()
 	return RunKnPlugin(kp.kn.Namespace(), kp.pluginName, args)
 }
 
