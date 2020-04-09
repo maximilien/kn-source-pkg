@@ -18,11 +18,39 @@ export PATH=$PWD:$PATH
 
 dir=$(dirname "${BASH_SOURCE[0]}")
 base=$(cd "$dir/.." && pwd)
+kn_path=`which kn`
 
-# TODO: Check and Install Kn if it's not present
+# find where kn is located
+check_for_kn() {
+	if [ -z "${KN_PATH}" ]; then
+		if [ -x "${kn_path}" ]; then
+			echo "✅ Found kn executable: $kn_path"
+		else
+			echo "🔥 Could not find kn executable, please add it to your PATH or set KN_PATH"
+			exit -1
+		fi
+	else
+		echo "✅ KN_PATH is set to: $KN_PATH"
+		export PATH=$KN_PATH:$PATH
+	fi
+}
 
 # Will create and delete this namespace (used for all tests, modify if you want a different one used)
 export KN_E2E_NAMESPACE=kne2etests
 
+# Make sure `kn` executable is in path
+echo "🔦  Looking for kn"
+check_for_kn
+echo ""
+
+# Start testing
 echo "🧪  Testing"
 go test ${base}/test/e2e/ -test.v -tags "e2e ${E2E_TAGS}" "$@"
+
+# Output
+echo ""
+if [ $? -eq 0 ]; then
+   echo "✅ Success"
+else
+	echo "❗️Failure"
+fi
