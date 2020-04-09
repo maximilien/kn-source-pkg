@@ -25,20 +25,22 @@ type E2ETest struct {
 
 // NewE2ETest for pluginName in pluginPath
 func NewE2ETest(pluginName string, pluginPath string, install bool) (*E2ETest, error) {
-	e2eTest := &E2ETest{
-		knPlugin: &knPlugin{
-			pluginName: pluginName,
-			pluginPath: pluginPath,
-			install:    install,
-		},
-	}
-
 	knTest, err := test.NewKnTest()
 	if err != nil {
 		return nil, err
 	}
 
-	e2eTest.knTest = knTest
+	knPlugin := &knPlugin{
+		kn: knTest.Kn(),
+		pluginName: pluginName,
+		pluginPath: pluginPath,
+		install:    install,
+	}
+
+	e2eTest := &E2ETest{
+		knTest: knTest,
+		knPlugin: knPlugin,
+	}
 
 	return e2eTest, nil
 }

@@ -66,23 +66,23 @@ func TestBasicWorkflow(t *testing.T) {
 func (it *E2ETest) knSourceCreate(t *testing.T, r *test.KnRunResultCollector, sourceName, sinkName string) {
 	out := it.KnPlugin().Run("create", sourceName, "--sink", sinkName)
 	r.AssertNoError(out)
-	assert.Check(t, util.ContainsAllIgnoreCase(out.Stdout, "create", sourceName))
+	assert.Check(t, util.ContainsAllIgnoreCase(out.Stdout, "create", sourceName, "namespace", it.KnTest().Namespace(), "sink", sinkName))
 }
 
 func (it *E2ETest) knSourceDescribe(t *testing.T, r *test.KnRunResultCollector, sourceName string) {
 	out := it.KnPlugin().Run("describe", sourceName)
 	r.AssertNoError(out)
-	assert.Check(t, util.ContainsAllIgnoreCase(out.Stdout, "describe", sourceName))
+	assert.Check(t, util.ContainsAllIgnoreCase(out.Stdout, "describe", sourceName, "namespace", it.KnTest().Namespace()))
 }
 
 func (it *E2ETest) knSourceUpdate(t *testing.T, r *test.KnRunResultCollector, sourceName, sinkName string) {
 	out := it.KnPlugin().Run("update", sourceName, "--sink", sinkName)
 	r.AssertNoError(out)
-	assert.Check(t, util.ContainsAllIgnoreCase(out.Stdout, "update", sourceName))
+	assert.Check(t, util.ContainsAllIgnoreCase(out.Stdout, "update", sourceName, "namespace", it.KnTest().Namespace(), "sink", sinkName))
 }
 
 func (it *E2ETest) knSourceDelete(t *testing.T, r *test.KnRunResultCollector, sourceName, sinkName string) {
 	out := it.KnPlugin().Run("delete", sourceName)
 	r.AssertNoError(out)
-	assert.Check(t, util.ContainsAllIgnoreCase(out.Stdout, "delete", sourceName))
+	assert.Check(t, util.ContainsAllIgnoreCase(out.Stdout, "delete", sourceName, "namespace", it.KnTest().Namespace()))
 }

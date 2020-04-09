@@ -51,7 +51,7 @@ func (f *DefautRunEFactory) CreateRunE() types.RunE {
 			return fmt.Errorf("could not access KnSourceClient for command %s", cmd.Name())
 		}
 
-		fmt.Printf("%s RunE called: args: %#v, client: %#v\n", cmd.Name(), args, knSourceClient)
+		fmt.Printf("%s RunE called: args: %#v, client: %#v, sink: %s\n", cmd.Name(), args, knSourceClient, knSourceClient.KnSourceParams().SinkFlag)
 
 		return nil
 	}
@@ -68,7 +68,7 @@ func (f *DefautRunEFactory) DeleteRunE() types.RunE {
 			return fmt.Errorf("could not access KnSourceClient for command %s", cmd.Name())
 		}
 
-		fmt.Printf("%s RunE called: args: %#v, client: %#v\n", cmd.Name(), args, knSourceClient)
+		fmt.Printf("%s RunE called: args: %#v, client: %#v, sink: %s\n", cmd.Name(), args, knSourceClient, knSourceClient.KnSourceParams().SinkFlag)
 
 		return nil
 	}
@@ -85,7 +85,7 @@ func (f *DefautRunEFactory) UpdateRunE() types.RunE {
 			return fmt.Errorf("could not access KnSourceClient for command %s", cmd.Name())
 		}
 
-		fmt.Printf("%s RunE called: args: %#v, client: %#v\n", cmd.Name(), args, knSourceClient)
+		fmt.Printf("%s RunE called: args: %#v, client: %#v, sink: %s\n", cmd.Name(), args, knSourceClient, knSourceClient.KnSourceParams().SinkFlag)
 
 		return nil
 	}
@@ -102,7 +102,7 @@ func (f *DefautRunEFactory) DescribeRunE() types.RunE {
 			return fmt.Errorf("could not access KnSourceClient for command %s", cmd.Name())
 		}
 
-		fmt.Printf("%s RunE called: args: %#v, client: %#v\n", cmd.Name(), args, knSourceClient)
+		fmt.Printf("%s RunE called: args: %#v, client: %#v, sink: %s\n", cmd.Name(), args, knSourceClient, knSourceClient.KnSourceParams().SinkFlag)
 
 		return nil
 	}
