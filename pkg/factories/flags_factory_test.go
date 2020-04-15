@@ -26,13 +26,6 @@ func TestNewDefaultFlagsFactory(t *testing.T) {
 	assert.Assert(t, flagsFactory != nil)
 }
 
-func TestFlagsFactory_KnSourceFactory(t *testing.T) {
-	knSourceFactory := NewDefaultKnSourceFactory()
-	flagsFactory := NewDefaultFlagsFactory(knSourceFactory)
-
-	assert.Equal(t, flagsFactory.KnSourceFactory(), knSourceFactory)
-}
-
 func TestCreateFlags(t *testing.T) {
 	flagsFactory := NewDefaultFlagsFactory(NewDefaultKnSourceFactory())
 

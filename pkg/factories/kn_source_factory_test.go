@@ -26,16 +26,6 @@ func TestNewDefaultKnSourceFactory(t *testing.T) {
 	assert.Assert(t, knSourceFactory != nil)
 }
 
-func TestKnSourceFactory_KnSourceParams(t *testing.T) {
-	knSourceFactory := NewDefaultKnSourceFactory()
-
-	knSourceParams := knSourceFactory.KnSourceParams()
-	assert.Assert(t, knSourceParams != nil)
-
-	knSourceParams = knSourceFactory.CreateKnSourceParams()
-	assert.Equal(t, knSourceFactory.KnSourceParams(), knSourceParams)
-}
-
 func TestCreateKnSourceParams(t *testing.T) {
 	knSourceFactory := NewDefaultKnSourceFactory()
 

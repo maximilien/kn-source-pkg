@@ -27,13 +27,6 @@ func TestNewDefaultCommandFactory(t *testing.T) {
 	assert.Assert(t, commandFactory != nil)
 }
 
-func TestKnSourceFactory(t *testing.T) {
-	knSourceFactory := NewDefaultKnSourceFactory()
-	commandFactory := NewDefaultCommandFactory(knSourceFactory)
-
-	assert.Equal(t, commandFactory.KnSourceFactory(), knSourceFactory)
-}
-
 func TestSourceCommand(t *testing.T) {
 	commandFactory := NewDefaultCommandFactory(NewDefaultKnSourceFactory())
 

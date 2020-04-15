@@ -28,18 +28,6 @@ func TestNewDefaultRunEFactory(t *testing.T) {
 	assert.Assert(t, runEFactory != nil)
 }
 
-func TestRunEFactory_KnSourceParams(t *testing.T) {
-	runEFactory := createDefaultRunEFactory()
-
-	assert.Assert(t, runEFactory.KnSourceFactory().KnSourceParams() != nil)
-}
-
-func TestKnSourceClientFactory(t *testing.T) {
-	runEFactory := createDefaultRunEFactory()
-
-	assert.Assert(t, runEFactory.KnSourceFactory() != nil)
-}
-
 func TestKnSourceClient(t *testing.T) {
 	runEFactory := createDefaultRunEFactory()
 
