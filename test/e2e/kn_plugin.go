@@ -22,7 +22,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/mitchellh/go-homedir"
+	homedir "github.com/mitchellh/go-homedir"
 	"knative.dev/client/lib/test"
 )
 
