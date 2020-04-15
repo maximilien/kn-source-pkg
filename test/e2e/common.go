@@ -31,14 +31,14 @@ func NewE2ETest(pluginName string, pluginPath string, install bool) (*E2ETest, e
 	}
 
 	knPlugin := &knPlugin{
-		kn: knTest.Kn(),
+		kn:         knTest.Kn(),
 		pluginName: pluginName,
 		pluginPath: pluginPath,
 		install:    install,
 	}
 
 	e2eTest := &E2ETest{
-		knTest: knTest,
+		knTest:   knTest,
 		knPlugin: knPlugin,
 	}
 
