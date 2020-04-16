@@ -52,6 +52,13 @@ func TestFlagsFactory_KnSourceFactory(t *testing.T) {
 
 // RunEFactory
 
+func TestKnSourceClient(t *testing.T) {
+	runEFactory := createDefaultRunEFactory()
+
+	knSourceClient := runEFactory.KnSourceClient("fake_namespace")
+	assert.Assert(t, knSourceClient != nil)
+}
+
 func TestRunEFactory_KnSourceParams(t *testing.T) {
 	runEFactory := createDefaultRunEFactory()
 
