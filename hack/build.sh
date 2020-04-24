@@ -100,6 +100,9 @@ codegen() {
 
   # Check for license headers
   check_license
+
+  # Auto generate cli docs
+  generate_docs
 }
 
 go_fmt() {
@@ -123,6 +126,13 @@ source_format() {
      find $(echo $source_dirs) -name "*.go" -print0 | xargs -0 gofmt -s -w
   fi
   set -e
+}
+
+generate_docs() {
+  echo "📖 Docs"
+  rm -rf "./docs/cmd"
+  mkdir -p "./docs/cmd"
+  go run "./hack/generate-docs.go" "."
 }
 
 go_build() {
