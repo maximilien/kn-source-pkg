@@ -69,6 +69,12 @@ run() {
     exit 0
   fi
 
+  # Run only e2e tests
+  if $(has_flag --e2e -e); then
+    go_e2e
+    exit 0
+  fi
+
   # Run only codegen
   if $(has_flag --codegen -c); then
     codegen
@@ -85,6 +91,7 @@ run() {
   codegen
   go_build
   go_test
+  go_e2e
 
   echo "────────────────────────────────────────────"
   ./kn-source_pkg
@@ -151,7 +158,7 @@ go_test() {
     reset="[39m"
   fi
 
-  echo "🧪 ${X}Test"
+  echo "🧪 ${X}Tests"
   set +e
   go test -v ./pkg/... >$test_output 2>&1
   local err=$?
@@ -162,6 +169,30 @@ go_test() {
     exit $err
   fi
   rm $test_output
+}
+
+go_e2e() {
+  local e2e_output=$(mktemp /tmp/kn-source_pkg-e2e-output.XXXXXX)
+
+  local red=""
+  local reset=""
+  # Use color only when a terminal is set
+  if [ -t 1 ]; then
+    red="[31m"
+    reset="[39m"
+  fi
+
+  echo "🧪 e2e ${X}Tests"
+  set +e
+  ./test/local-e2e-tests.sh >$e2e_output 2>&1
+  local err=$?
+  if [ $err -ne 0 ]; then
+    echo "🔥 ${red}Failure${reset}"
+    cat $e2e_output | sed -e "s/^.*\(FAIL.*\)$/$red\1$reset/"
+    rm $e2e_output
+    exit $err
+  fi
+  rm $e2e_output
 }
 
 check_license() {
@@ -312,6 +343,7 @@ with the following options:
 
 -f  --fast                    Only compile (without dep update, formatting, testing, doc gen)
 -t  --test                    Run tests when used with --fast or --watch
+-e  --e2e                     Run the e2e tests when used with --fast or --watch
 -c  --codegen                 Runs formatting, doc gen and update without compiling/testing
 -w  --watch                   Watch for source changes and recompile in fast mode
 -x  --all                     Only build cross platform binaries without code-generation/testing
@@ -330,6 +362,7 @@ Examples:
   gen docs, compile, test: ........... build.sh
 * Compile only: ...................... build.sh --fast
 * Run only tests: .................... build.sh --test
+* Run only e2e tests: ................ build.sh --e2e
 * Compile with tests: ................ build.sh -f -t
 * Automatic recompilation: ........... build.sh --watch
 * Build cross platform binaries: ..... build.sh --all
