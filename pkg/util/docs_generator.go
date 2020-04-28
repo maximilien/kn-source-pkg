@@ -42,6 +42,8 @@ func ReadmeGenerator(cmd *cobra.Command) error {
 	return readmeGenerator(cmd, mdFilepath)
 }
 
+//Private
+
 func readmeGenerator(cmd *cobra.Command, filepath string) error {
 	var (
 		header string
