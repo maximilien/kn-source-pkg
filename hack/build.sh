@@ -139,7 +139,7 @@ generate_docs() {
   echo "📖 Docs"
   rm -rf "./docs/cmd"
   mkdir -p "./docs/cmd"
-  go run "./hack/generate-docs.go" "."
+  go run "./hack/generate_docs.go" "."
 }
 
 go_build() {
