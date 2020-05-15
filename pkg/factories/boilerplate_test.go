@@ -51,8 +51,7 @@ func TestFlagsFactory_KnSourceFactory(t *testing.T) {
 }
 
 // RunEFactory
-// TODO: fix me
-func _TestKnSourceClient(t *testing.T) {
+func TestKnSourceClient(t *testing.T) {
 	runEFactory := createDefaultRunEFactory()
 
 	knSourceClient := runEFactory.KnSourceClient("fake_namespace")

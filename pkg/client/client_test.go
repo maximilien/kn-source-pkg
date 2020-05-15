@@ -20,29 +20,36 @@ import (
 	"gotest.tools/assert"
 
 	"github.com/maximilien/kn-source-pkg/pkg/types"
+
+	"github.com/maximilien/kn-source-pkg/pkg/fakes"
 )
 
-// TODO: fix me
-func _TestNewKnSourceClient(t *testing.T) {
-	knSourceClient := NewKnSourceClient(&types.KnSourceParams{}, "fake-namespace")
+func TestNewKnSourceClient(t *testing.T) {
+	knSourceClient := newFakeKnSourceClient()
 	assert.Assert(t, knSourceClient != nil)
 }
 
-// TODO: fix me
-func _TestKnSourceParams(t *testing.T) {
-	fakeKnSourceParams := &types.KnSourceParams{}
-	knSourceClient := NewKnSourceClient(fakeKnSourceParams, "fake-namespace")
-	assert.Equal(t, knSourceClient.KnSourceParams(), fakeKnSourceParams)
+func TestKnSourceParams(t *testing.T) {
+	knSourceClient := newFakeKnSourceClient()
+	assert.Equal(t, knSourceClient.KnSourceParams(), knSourceClient.knSourceParams)
 }
 
-// TODO: fix me
-func _TestNamespace(t *testing.T) {
-	knSourceClient := NewKnSourceClient(&types.KnSourceParams{}, "fake-namespace")
+func TestNamespace(t *testing.T) {
+	knSourceClient := newFakeKnSourceClient()
 	assert.Equal(t, knSourceClient.Namespace(), "fake-namespace")
 }
 
-// TODO: fix me
-func _TestSourcesClient(t *testing.T) {
-	knSourceClient := NewKnSourceClient(&types.KnSourceParams{}, "fake-namespace")
+func TestSourcesClient(t *testing.T) {
+	knSourceClient := newFakeKnSourceClient()
 	assert.Assert(t, knSourceClient.SourcesClient() != nil)
+}
+
+// Private
+
+func newFakeKnSourceClient() *knSourceClient {
+	return &knSourceClient{
+		knSourceParams: &types.KnSourceParams{},
+		namespace:      "fake-namespace",
+		sourcesClient:  &fakes.FakeSourcesV1alpha1Interface{},
+	}
 }

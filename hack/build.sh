@@ -25,6 +25,10 @@ else
     ARGS=("$@")
 fi
 
+# counterfeiter
+
+COUNTERFEITER=github.com/maxbrunsfeld/counterfeiter/v6
+
 set -eu
 
 # Run build
@@ -108,6 +112,9 @@ codegen() {
   # Check for license headers
   check_license
 
+  # Generate fakes
+  generate_fakes
+
   # Auto generate cli docs
   generate_docs
 }
@@ -135,11 +142,44 @@ source_format() {
   set -e
 }
 
+generate_fakes() {
+  echo "🎭 Fakes (pkg/types)"
+  genfakes=false
+  for f in ./pkg/types/*.go 
+  do
+    if [ "$f" -nt ./pkg/types/typesfakes ]; then
+      echo "Found newer file: $f, generating new fakes"
+      genfakes=true
+    fi
+  done
+  if $genfakes ; then
+    rm -rf "./pkg/types/typesfakes"
+    mkdir -p "./pkg/types/typesfakes"
+    go generate ./pkg/types/...
+  fi
+  
+  echo "🎭 Fakes (3rd parties)"
+  mkdir -p "./pkg/fakes"
+
+  TYPES=( knative.dev/eventing-contrib/github/pkg/client/clientset/versioned/typed/sources/v1alpha1.SourcesV1alpha1Interface )
+  FILES=( ./vendor/knative.dev/eventing-contrib/github/pkg/client/clientset/versioned/typed/sources )
+  CFILES=( ./pkg/fakes/fake_sources_v1alpha1interface.go )
+  
+  i=0
+  for t in ${TYPES[@]}
+  do
+    if [[ ${FILES[$i]} -nt ${CFILES[$i]} ]]; then
+      go run $COUNTERFEITER -o ${CFILES[$i]} $t
+    fi
+    i=i+1
+  done
+}
+
 generate_docs() {
   echo "📖 Docs"
   rm -rf "./docs/cmd"
   mkdir -p "./docs/cmd"
-  go run "./hack/generate_docs.go" "."
+  go run "./hack/tools/godocs.go" "."
 }
 
 go_build() {
@@ -202,7 +242,7 @@ check_license() {
 
   local check_output=$(mktemp /tmp/kn-source_pkg-licence-check.XXXXXX)
   for ext in "${extensions_to_check[@]}"; do
-    find . -name "*.$ext" -a \! -path "./vendor/*" -a \! -path "./.*" -print0 |
+    find . -name "*.$ext" -a \! -path "./vendor/*" -a \! -path "./pkg/*fakes*" -a \! -path "./.*" -print0 |
       while IFS= read -r -d '' path; do
         for rword in "${required_keywords[@]}"; do
           if ! grep -q "$rword" "$path"; then
@@ -364,6 +404,7 @@ Examples:
 * Run only tests: .................... build.sh --test
 * Run only e2e tests: ................ build.sh --e2e
 * Compile with tests: ................ build.sh -f -t
+* Generate fakes: .................... build.sh --codegen
 * Automatic recompilation: ........... build.sh --watch
 * Build cross platform binaries: ..... build.sh --all
 EOT

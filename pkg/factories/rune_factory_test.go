@@ -55,6 +55,6 @@ func TestDescribeRunE(t *testing.T) {
 // Private
 
 func createDefaultRunEFactory() types.RunEFactory {
-	knSourceFactory := NewDefaultKnSourceFactory()
+	knSourceFactory := newDefaultKnSourceFactory()
 	return NewDefaultRunEFactory(knSourceFactory)
 }
