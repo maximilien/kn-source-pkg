@@ -5,7 +5,7 @@ import (
 	"sync"
 
 	"github.com/maximilien/kn-source-pkg/pkg/types"
-	"knative.dev/eventing-contrib/github/pkg/client/clientset/versioned/typed/sources/v1alpha1"
+	"k8s.io/client-go/rest"
 )
 
 type FakeKnSourceClient struct {
@@ -29,15 +29,15 @@ type FakeKnSourceClient struct {
 	namespaceReturnsOnCall map[int]struct {
 		result1 string
 	}
-	SourcesClientStub        func() v1alpha1.SourcesV1alpha1Interface
-	sourcesClientMutex       sync.RWMutex
-	sourcesClientArgsForCall []struct {
+	RestConfigStub        func() *rest.Config
+	restConfigMutex       sync.RWMutex
+	restConfigArgsForCall []struct {
 	}
-	sourcesClientReturns struct {
-		result1 v1alpha1.SourcesV1alpha1Interface
+	restConfigReturns struct {
+		result1 *rest.Config
 	}
-	sourcesClientReturnsOnCall map[int]struct {
-		result1 v1alpha1.SourcesV1alpha1Interface
+	restConfigReturnsOnCall map[int]struct {
+		result1 *rest.Config
 	}
 	invocations      map[string][][]interface{}
 	invocationsMutex sync.RWMutex
@@ -147,55 +147,55 @@ func (fake *FakeKnSourceClient) NamespaceReturnsOnCall(i int, result1 string) {
 	}{result1}
 }
 
-func (fake *FakeKnSourceClient) SourcesClient() v1alpha1.SourcesV1alpha1Interface {
-	fake.sourcesClientMutex.Lock()
-	ret, specificReturn := fake.sourcesClientReturnsOnCall[len(fake.sourcesClientArgsForCall)]
-	fake.sourcesClientArgsForCall = append(fake.sourcesClientArgsForCall, struct {
+func (fake *FakeKnSourceClient) RestConfig() *rest.Config {
+	fake.restConfigMutex.Lock()
+	ret, specificReturn := fake.restConfigReturnsOnCall[len(fake.restConfigArgsForCall)]
+	fake.restConfigArgsForCall = append(fake.restConfigArgsForCall, struct {
 	}{})
-	fake.recordInvocation("SourcesClient", []interface{}{})
-	fake.sourcesClientMutex.Unlock()
-	if fake.SourcesClientStub != nil {
-		return fake.SourcesClientStub()
+	fake.recordInvocation("RestConfig", []interface{}{})
+	fake.restConfigMutex.Unlock()
+	if fake.RestConfigStub != nil {
+		return fake.RestConfigStub()
 	}
 	if specificReturn {
 		return ret.result1
 	}
-	fakeReturns := fake.sourcesClientReturns
+	fakeReturns := fake.restConfigReturns
 	return fakeReturns.result1
 }
 
-func (fake *FakeKnSourceClient) SourcesClientCallCount() int {
-	fake.sourcesClientMutex.RLock()
-	defer fake.sourcesClientMutex.RUnlock()
-	return len(fake.sourcesClientArgsForCall)
+func (fake *FakeKnSourceClient) RestConfigCallCount() int {
+	fake.restConfigMutex.RLock()
+	defer fake.restConfigMutex.RUnlock()
+	return len(fake.restConfigArgsForCall)
 }
 
-func (fake *FakeKnSourceClient) SourcesClientCalls(stub func() v1alpha1.SourcesV1alpha1Interface) {
-	fake.sourcesClientMutex.Lock()
-	defer fake.sourcesClientMutex.Unlock()
-	fake.SourcesClientStub = stub
+func (fake *FakeKnSourceClient) RestConfigCalls(stub func() *rest.Config) {
+	fake.restConfigMutex.Lock()
+	defer fake.restConfigMutex.Unlock()
+	fake.RestConfigStub = stub
 }
 
-func (fake *FakeKnSourceClient) SourcesClientReturns(result1 v1alpha1.SourcesV1alpha1Interface) {
-	fake.sourcesClientMutex.Lock()
-	defer fake.sourcesClientMutex.Unlock()
-	fake.SourcesClientStub = nil
-	fake.sourcesClientReturns = struct {
-		result1 v1alpha1.SourcesV1alpha1Interface
+func (fake *FakeKnSourceClient) RestConfigReturns(result1 *rest.Config) {
+	fake.restConfigMutex.Lock()
+	defer fake.restConfigMutex.Unlock()
+	fake.RestConfigStub = nil
+	fake.restConfigReturns = struct {
+		result1 *rest.Config
 	}{result1}
 }
 
-func (fake *FakeKnSourceClient) SourcesClientReturnsOnCall(i int, result1 v1alpha1.SourcesV1alpha1Interface) {
-	fake.sourcesClientMutex.Lock()
-	defer fake.sourcesClientMutex.Unlock()
-	fake.SourcesClientStub = nil
-	if fake.sourcesClientReturnsOnCall == nil {
-		fake.sourcesClientReturnsOnCall = make(map[int]struct {
-			result1 v1alpha1.SourcesV1alpha1Interface
+func (fake *FakeKnSourceClient) RestConfigReturnsOnCall(i int, result1 *rest.Config) {
+	fake.restConfigMutex.Lock()
+	defer fake.restConfigMutex.Unlock()
+	fake.RestConfigStub = nil
+	if fake.restConfigReturnsOnCall == nil {
+		fake.restConfigReturnsOnCall = make(map[int]struct {
+			result1 *rest.Config
 		})
 	}
-	fake.sourcesClientReturnsOnCall[i] = struct {
-		result1 v1alpha1.SourcesV1alpha1Interface
+	fake.restConfigReturnsOnCall[i] = struct {
+		result1 *rest.Config
 	}{result1}
 }
 
@@ -206,8 +206,8 @@ func (fake *FakeKnSourceClient) Invocations() map[string][][]interface{} {
 	defer fake.knSourceParamsMutex.RUnlock()
 	fake.namespaceMutex.RLock()
 	defer fake.namespaceMutex.RUnlock()
-	fake.sourcesClientMutex.RLock()
-	defer fake.sourcesClientMutex.RUnlock()
+	fake.restConfigMutex.RLock()
+	defer fake.restConfigMutex.RUnlock()
 	copiedInvocations := map[string][][]interface{}{}
 	for key, value := range fake.invocations {
 		copiedInvocations[key] = value

@@ -26,7 +26,6 @@ else
 fi
 
 # counterfeiter
-
 COUNTERFEITER=github.com/maxbrunsfeld/counterfeiter/v6
 
 set -eu
@@ -82,6 +81,12 @@ run() {
   # Run only codegen
   if $(has_flag --codegen -c); then
     codegen
+    exit 0
+  fi
+
+  # Run only generate_fakes
+  if $(has_flag --fakes); then
+    generate_fakes
     exit 0
   fi
 
@@ -157,22 +162,6 @@ generate_fakes() {
     mkdir -p "./pkg/types/typesfakes"
     go generate ./pkg/types/...
   fi
-  
-  echo "🎭 Fakes (3rd parties)"
-  mkdir -p "./pkg/fakes"
-
-  TYPES=( knative.dev/eventing-contrib/github/pkg/client/clientset/versioned/typed/sources/v1alpha1.SourcesV1alpha1Interface )
-  FILES=( ./vendor/knative.dev/eventing-contrib/github/pkg/client/clientset/versioned/typed/sources )
-  CFILES=( ./pkg/fakes/fake_sources_v1alpha1interface.go )
-  
-  i=0
-  for t in ${TYPES[@]}
-  do
-    if [[ ${FILES[$i]} -nt ${CFILES[$i]} ]]; then
-      go run $COUNTERFEITER -o ${CFILES[$i]} $t
-    fi
-    i=i+1
-  done
 }
 
 generate_docs() {
@@ -404,7 +393,8 @@ Examples:
 * Run only tests: .................... build.sh --test
 * Run only e2e tests: ................ build.sh --e2e
 * Compile with tests: ................ build.sh -f -t
-* Generate fakes: .................... build.sh --codegen
+* Code gen: .......................... build.sh --codegen
+* Generate fakes: .................... build.sh --fakes
 * Automatic recompilation: ........... build.sh --watch
 * Build cross platform binaries: ..... build.sh --all
 EOT

@@ -21,7 +21,7 @@ import (
 
 	"github.com/maximilien/kn-source-pkg/pkg/types"
 
-	"github.com/maximilien/kn-source-pkg/pkg/fakes"
+	"k8s.io/client-go/rest"
 )
 
 func TestNewKnSourceClient(t *testing.T) {
@@ -39,9 +39,9 @@ func TestNamespace(t *testing.T) {
 	assert.Equal(t, knSourceClient.Namespace(), "fake-namespace")
 }
 
-func TestSourcesClient(t *testing.T) {
+func TestRestConfig(t *testing.T) {
 	knSourceClient := newFakeKnSourceClient()
-	assert.Assert(t, knSourceClient.SourcesClient() != nil)
+	assert.Assert(t, knSourceClient.RestConfig() != nil)
 }
 
 // Private
@@ -50,6 +50,6 @@ func newFakeKnSourceClient() *knSourceClient {
 	return &knSourceClient{
 		knSourceParams: &types.KnSourceParams{},
 		namespace:      "fake-namespace",
-		sourcesClient:  &fakes.FakeSourcesV1alpha1Interface{},
+		restConfig:     &rest.Config{},
 	}
 }
