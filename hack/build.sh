@@ -57,11 +57,15 @@ run() {
   fi
 
   # Fast mode: Only compile and maybe run test
-  if $(has_flag --fast -f); then
+  if $(has_flag --compile --fast -f); then
     go_build
 
     if $(has_flag --test -t); then
        go_test
+    fi
+
+    if $(has_flag --e2e); then
+       go_e2e
     fi
     exit 0
   fi
@@ -73,7 +77,7 @@ run() {
   fi
 
   # Run only e2e tests
-  if $(has_flag --e2e -e); then
+  if $(has_flag --e2e); then
     go_e2e
     exit 0
   fi
@@ -370,7 +374,7 @@ Usage: $(basename $BASH_SOURCE) [... options ...]
 
 with the following options:
 
--f  --fast                    Only compile (without dep update, formatting, testing, doc gen)
+-f  --fast --compile          Only compile (without dep update, formatting, testing, doc gen)
 -t  --test                    Run tests when used with --fast or --watch
 -e  --e2e                     Run the e2e tests when used with --fast or --watch
 -c  --codegen                 Runs formatting, doc gen and update without compiling/testing
