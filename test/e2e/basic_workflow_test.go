@@ -39,7 +39,7 @@ func TestBasicWorkflow(t *testing.T) {
 		assert.NilError(t, it.KnTest().Teardown())
 	}()
 
-	r := test.NewKnRunResultCollector(t)
+	r := test.NewKnRunResultCollector(t, it.KnTest())
 	defer r.DumpIfFailed()
 
 	err = it.KnPlugin().Install()
