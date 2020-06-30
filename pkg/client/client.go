@@ -28,11 +28,6 @@ type knSourceClient struct {
 
 // NewKnSourceClient creates a new KnSourceClient with parameters and namespace
 func NewKnSourceClient(knSourceParams *types.KnSourceParams, restConfig *rest.Config, namespace string) types.KnSourceClient {
-	/*restConfig, err := knSourceParams.RestConfig()
-	if err != nil {
-		panic(fmt.Sprintf("Could not create Kn source client, error: %s", err.Error()))
-	}*/
-
 	return &knSourceClient{
 		knSourceParams: knSourceParams,
 		namespace:      namespace,
