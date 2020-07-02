@@ -16,6 +16,7 @@ package factories
 
 import (
 	"github.com/maximilien/kn-source-pkg/pkg/types"
+	"k8s.io/client-go/rest"
 )
 
 // KnSourceFactory
@@ -46,10 +47,6 @@ func (f *DefautRunEFactory) KnSourceFactory() types.KnSourceFactory {
 	return f.knSourceFactory
 }
 
-func (f *DefautRunEFactory) KnSourceClient(namespace string) (types.KnSourceClient, error) {
-	restConfig, err := f.KnSourceFactory().KnSourceParams().RestConfig()
-	if err != nil {
-		return nil, err
-	}
-	return f.knSourceFactory.CreateKnSourceClient(restConfig, namespace), nil
+func (f *DefautRunEFactory) KnSourceClient(restConfig *rest.Config, namespace string) types.KnSourceClient {
+	return f.knSourceFactory.CreateKnSourceClient(restConfig, namespace)
 }

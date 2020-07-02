@@ -18,6 +18,8 @@ import (
 	"testing"
 
 	"gotest.tools/assert"
+
+	"k8s.io/client-go/rest"
 )
 
 // KnSourceFactory
@@ -54,8 +56,7 @@ func TestFlagsFactory_KnSourceFactory(t *testing.T) {
 func TestKnSourceClient(t *testing.T) {
 	runEFactory := createDefaultRunEFactory()
 
-	knSourceClient, err := runEFactory.KnSourceClient("fake_namespace")
-	assert.Assert(t, err == nil)
+	knSourceClient := runEFactory.KnSourceClient(&rest.Config{}, "fake_namespace")
 	assert.Assert(t, knSourceClient != nil)
 }
 

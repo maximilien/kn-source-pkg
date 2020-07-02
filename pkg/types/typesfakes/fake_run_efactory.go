@@ -6,6 +6,7 @@ import (
 
 	"github.com/maximilien/kn-source-pkg/pkg/types"
 	"github.com/spf13/cobra"
+	"k8s.io/client-go/rest"
 )
 
 type FakeRunEFactory struct {
@@ -39,18 +40,17 @@ type FakeRunEFactory struct {
 	describeRunEReturnsOnCall map[int]struct {
 		result1 func(cmd *cobra.Command, args []string) error
 	}
-	KnSourceClientStub        func(string) (types.KnSourceClient, error)
+	KnSourceClientStub        func(*rest.Config, string) types.KnSourceClient
 	knSourceClientMutex       sync.RWMutex
 	knSourceClientArgsForCall []struct {
-		arg1 string
+		arg1 *rest.Config
+		arg2 string
 	}
 	knSourceClientReturns struct {
 		result1 types.KnSourceClient
-		result2 error
 	}
 	knSourceClientReturnsOnCall map[int]struct {
 		result1 types.KnSourceClient
-		result2 error
 	}
 	KnSourceFactoryStub        func() types.KnSourceFactory
 	knSourceFactoryMutex       sync.RWMutex
@@ -232,22 +232,23 @@ func (fake *FakeRunEFactory) DescribeRunEReturnsOnCall(i int, result1 func(cmd *
 	}{result1}
 }
 
-func (fake *FakeRunEFactory) KnSourceClient(arg1 string) (types.KnSourceClient, error) {
+func (fake *FakeRunEFactory) KnSourceClient(arg1 *rest.Config, arg2 string) types.KnSourceClient {
 	fake.knSourceClientMutex.Lock()
 	ret, specificReturn := fake.knSourceClientReturnsOnCall[len(fake.knSourceClientArgsForCall)]
 	fake.knSourceClientArgsForCall = append(fake.knSourceClientArgsForCall, struct {
-		arg1 string
-	}{arg1})
-	fake.recordInvocation("KnSourceClient", []interface{}{arg1})
+		arg1 *rest.Config
+		arg2 string
+	}{arg1, arg2})
+	fake.recordInvocation("KnSourceClient", []interface{}{arg1, arg2})
 	fake.knSourceClientMutex.Unlock()
 	if fake.KnSourceClientStub != nil {
-		return fake.KnSourceClientStub(arg1)
+		return fake.KnSourceClientStub(arg1, arg2)
 	}
 	if specificReturn {
-		return ret.result1, ret.result2
+		return ret.result1
 	}
 	fakeReturns := fake.knSourceClientReturns
-	return fakeReturns.result1, fakeReturns.result2
+	return fakeReturns.result1
 }
 
 func (fake *FakeRunEFactory) KnSourceClientCallCount() int {
@@ -256,43 +257,40 @@ func (fake *FakeRunEFactory) KnSourceClientCallCount() int {
 	return len(fake.knSourceClientArgsForCall)
 }
 
-func (fake *FakeRunEFactory) KnSourceClientCalls(stub func(string) (types.KnSourceClient, error)) {
+func (fake *FakeRunEFactory) KnSourceClientCalls(stub func(*rest.Config, string) types.KnSourceClient) {
 	fake.knSourceClientMutex.Lock()
 	defer fake.knSourceClientMutex.Unlock()
 	fake.KnSourceClientStub = stub
 }
 
-func (fake *FakeRunEFactory) KnSourceClientArgsForCall(i int) string {
+func (fake *FakeRunEFactory) KnSourceClientArgsForCall(i int) (*rest.Config, string) {
 	fake.knSourceClientMutex.RLock()
 	defer fake.knSourceClientMutex.RUnlock()
 	argsForCall := fake.knSourceClientArgsForCall[i]
-	return argsForCall.arg1
+	return argsForCall.arg1, argsForCall.arg2
 }
 
-func (fake *FakeRunEFactory) KnSourceClientReturns(result1 types.KnSourceClient, result2 error) {
+func (fake *FakeRunEFactory) KnSourceClientReturns(result1 types.KnSourceClient) {
 	fake.knSourceClientMutex.Lock()
 	defer fake.knSourceClientMutex.Unlock()
 	fake.KnSourceClientStub = nil
 	fake.knSourceClientReturns = struct {
 		result1 types.KnSourceClient
-		result2 error
-	}{result1, result2}
+	}{result1}
 }
 
-func (fake *FakeRunEFactory) KnSourceClientReturnsOnCall(i int, result1 types.KnSourceClient, result2 error) {
+func (fake *FakeRunEFactory) KnSourceClientReturnsOnCall(i int, result1 types.KnSourceClient) {
 	fake.knSourceClientMutex.Lock()
 	defer fake.knSourceClientMutex.Unlock()
 	fake.KnSourceClientStub = nil
 	if fake.knSourceClientReturnsOnCall == nil {
 		fake.knSourceClientReturnsOnCall = make(map[int]struct {
 			result1 types.KnSourceClient
-			result2 error
 		})
 	}
 	fake.knSourceClientReturnsOnCall[i] = struct {
 		result1 types.KnSourceClient
-		result2 error
-	}{result1, result2}
+	}{result1}
 }
 
 func (fake *FakeRunEFactory) KnSourceFactory() types.KnSourceFactory {

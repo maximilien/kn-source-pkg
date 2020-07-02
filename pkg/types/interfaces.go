@@ -76,5 +76,5 @@ type RunEFactory interface {
 	DescribeRunE() RunE
 
 	KnSourceFactory() KnSourceFactory
-	KnSourceClient(namespace string) (KnSourceClient, error)
+	KnSourceClient(restConfig *rest.Config, namespace string) KnSourceClient
 }
