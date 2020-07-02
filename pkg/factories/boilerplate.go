@@ -14,7 +14,9 @@
 
 package factories
 
-import "github.com/maximilien/kn-source-pkg/pkg/types"
+import (
+	"github.com/maximilien/kn-source-pkg/pkg/types"
+)
 
 // KnSourceFactory
 
@@ -44,6 +46,10 @@ func (f *DefautRunEFactory) KnSourceFactory() types.KnSourceFactory {
 	return f.knSourceFactory
 }
 
-func (f *DefautRunEFactory) KnSourceClient(namespace string) types.KnSourceClient {
-	return f.knSourceFactory.CreateKnSourceClient(namespace)
+func (f *DefautRunEFactory) KnSourceClient(namespace string) (types.KnSourceClient, error) {
+	restConfig, err := f.KnSourceFactory().KnSourceParams().RestConfig()
+	if err != nil {
+		return nil, err
+	}
+	return f.knSourceFactory.CreateKnSourceClient(restConfig, namespace), nil
 }

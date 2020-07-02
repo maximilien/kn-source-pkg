@@ -19,6 +19,8 @@ import (
 
 	"github.com/maximilien/kn-source-pkg/pkg/types"
 	"gotest.tools/assert"
+	"k8s.io/client-go/rest"
+	"knative.dev/client/pkg/kn/commands/flags"
 
 	"github.com/maximilien/kn-source-pkg/pkg/types/typesfakes"
 )
@@ -38,7 +40,7 @@ func TestCreateKnSourceParams(t *testing.T) {
 
 func TestCreateKnSourceClient(t *testing.T) {
 	knSourceFactory := newDefaultKnSourceFactory()
-	client := knSourceFactory.CreateKnSourceClient("fake-namespace")
+	client := knSourceFactory.CreateKnSourceClient(&rest.Config{}, "fake-namespace")
 
 	assert.Assert(t, client != nil)
 	assert.Equal(t, client.Namespace(), "fake-namespace")
@@ -48,13 +50,15 @@ func TestCreateKnSourceClient(t *testing.T) {
 
 func newDefaultKnSourceFactory() types.KnSourceFactory {
 	return &DefautKnSourceFactory{
+		knSourceParams:     &types.KnSourceParams{SinkFlag: flags.SinkFlags{}},
 		knSourceClientFunc: fakeKnSourceClientFunc,
 	}
 }
 
-func fakeKnSourceClientFunc(knSourceParams *types.KnSourceParams, namespace string) types.KnSourceClient {
+func fakeKnSourceClientFunc(knSourceParams *types.KnSourceParams, restConfig *rest.Config, namespace string) types.KnSourceClient {
 	fakeKnSourceClient := &typesfakes.FakeKnSourceClient{}
 	fakeKnSourceClient.KnSourceParamsReturns(knSourceParams)
 	fakeKnSourceClient.NamespaceReturns(namespace)
+	fakeKnSourceClient.RestConfigReturns(restConfig)
 	return fakeKnSourceClient
 }
