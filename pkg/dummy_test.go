@@ -16,8 +16,6 @@ package pkg
 
 import (
 	"testing"
-
-	_ "knative.dev/test-infra/scripts"
 )
 
 func TestDummy(t *testing.T) {

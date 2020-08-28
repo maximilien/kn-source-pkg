@@ -49,7 +49,7 @@ source create NAME [flags]
   -A, --all-namespaces     If present, list the requested object(s) across all namespaces. Namespace in current context is ignored even if specified with --namespace.
   -h, --help               help for create
   -n, --namespace string   Specify the namespace to operate in.
-  -s, --sink string        Addressable sink for events
+  -s, --sink string        Addressable sink for events. You can specify a broker, Knative service or URI. Examples: '--sink broker:nest' for a broker 'nest', '--sink https://event.receiver.uri' for an URI with an 'http://' or 'https://' schema, '--sink 'ksvc:receiver' or simply '--sink receiver' for a Knative service 'receiver'. If prefix is not provided, it is considered as a Knative service.
 ```
 
 #### SEE ALSO
@@ -140,7 +140,7 @@ source update NAME [flags]
   -A, --all-namespaces     If present, list the requested object(s) across all namespaces. Namespace in current context is ignored even if specified with --namespace.
   -h, --help               help for update
   -n, --namespace string   Specify the namespace to operate in.
-  -s, --sink string        Addressable sink for events
+  -s, --sink string        Addressable sink for events. You can specify a broker, Knative service or URI. Examples: '--sink broker:nest' for a broker 'nest', '--sink https://event.receiver.uri' for an URI with an 'http://' or 'https://' schema, '--sink 'ksvc:receiver' or simply '--sink receiver' for a Knative service 'receiver'. If prefix is not provided, it is considered as a Knative service.
 ```
 
 #### SEE ALSO
