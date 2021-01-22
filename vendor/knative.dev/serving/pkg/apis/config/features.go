@@ -5,7 +5,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    https://www.apache.org/licenses/LICENSE-2.0
+    http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,6 +23,7 @@ import (
 	cm "knative.dev/pkg/configmap"
 )
 
+// Flag is a string value which can be either Enabled, Disabled, or Allowed.
 type Flag string
 
 const (
@@ -40,14 +41,16 @@ const (
 
 func defaultFeaturesConfig() *Features {
 	return &Features{
-		MultiContainer:         Enabled,
-		PodSpecAffinity:        Disabled,
-		PodSpecFieldRef:        Disabled,
-		PodSpecDryRun:          Allowed,
-		PodSpecNodeSelector:    Disabled,
-		PodSpecSecurityContext: Disabled,
-		PodSpecTolerations:     Disabled,
-		ResponsiveRevisionGC:   Disabled,
+		MultiContainer:          Enabled,
+		PodSpecAffinity:         Disabled,
+		PodSpecDryRun:           Allowed,
+		PodSpecHostAliases:      Disabled,
+		PodSpecFieldRef:         Disabled,
+		PodSpecNodeSelector:     Disabled,
+		PodSpecRuntimeClassName: Disabled,
+		PodSpecSecurityContext:  Disabled,
+		PodSpecTolerations:      Disabled,
+		TagHeaderBasedRouting:   Disabled,
 	}
 }
 
@@ -58,12 +61,14 @@ func NewFeaturesConfigFromMap(data map[string]string) (*Features, error) {
 	if err := cm.Parse(data,
 		asFlag("multi-container", &nc.MultiContainer),
 		asFlag("kubernetes.podspec-affinity", &nc.PodSpecAffinity),
-		asFlag("kubernetes.podspec-fieldref", &nc.PodSpecFieldRef),
 		asFlag("kubernetes.podspec-dryrun", &nc.PodSpecDryRun),
+		asFlag("kubernetes.podspec-hostaliases", &nc.PodSpecHostAliases),
+		asFlag("kubernetes.podspec-fieldref", &nc.PodSpecFieldRef),
 		asFlag("kubernetes.podspec-nodeselector", &nc.PodSpecNodeSelector),
+		asFlag("kubernetes.podspec-runtimeclassname", &nc.PodSpecRuntimeClassName),
 		asFlag("kubernetes.podspec-securitycontext", &nc.PodSpecSecurityContext),
 		asFlag("kubernetes.podspec-tolerations", &nc.PodSpecTolerations),
-		asFlag("responsive-revision-gc", &nc.ResponsiveRevisionGC)); err != nil {
+		asFlag("tag-header-based-routing", &nc.TagHeaderBasedRouting)); err != nil {
 		return nil, err
 	}
 	return nc, nil
@@ -76,14 +81,16 @@ func NewFeaturesConfigFromConfigMap(config *corev1.ConfigMap) (*Features, error)
 
 // Features specifies which features are allowed by the webhook.
 type Features struct {
-	MultiContainer         Flag
-	PodSpecAffinity        Flag
-	PodSpecFieldRef        Flag
-	PodSpecDryRun          Flag
-	PodSpecNodeSelector    Flag
-	PodSpecTolerations     Flag
-	PodSpecSecurityContext Flag
-	ResponsiveRevisionGC   Flag
+	MultiContainer          Flag
+	PodSpecAffinity         Flag
+	PodSpecDryRun           Flag
+	PodSpecFieldRef         Flag
+	PodSpecHostAliases      Flag
+	PodSpecNodeSelector     Flag
+	PodSpecRuntimeClassName Flag
+	PodSpecSecurityContext  Flag
+	PodSpecTolerations      Flag
+	TagHeaderBasedRouting   Flag
 }
 
 // asFlag parses the value at key as a Flag into the target, if it exists.

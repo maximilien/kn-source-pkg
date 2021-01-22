@@ -73,11 +73,11 @@ func VolumeProjectionMask(in *corev1.VolumeProjection) *corev1.VolumeProjection 
 	// Allowed fields
 	out.Secret = in.Secret
 	out.ConfigMap = in.ConfigMap
+	out.ServiceAccountToken = in.ServiceAccountToken
 
 	// Disallowed fields
 	// This list is unnecessary, but added here for clarity
 	out.DownwardAPI = nil
-	out.ServiceAccountToken = nil
 
 	return out
 }
@@ -114,6 +114,24 @@ func SecretProjectionMask(in *corev1.SecretProjection) *corev1.SecretProjection 
 	out.LocalObjectReference = in.LocalObjectReference
 	out.Items = in.Items
 	out.Optional = in.Optional
+
+	return out
+}
+
+// ServiceAccountTokenProjectionMask performs a _shallow_ copy of the Kubernetes ServiceAccountTokenProjection
+// object to a new Kubernetes ServiceAccountTokenProjection object bringing over only the fields allowed
+// in the Knative API. This does not validate the contents or the bounds of the provided fields.
+func ServiceAccountTokenProjectionMask(in *corev1.ServiceAccountTokenProjection) *corev1.ServiceAccountTokenProjection {
+	if in == nil {
+		return nil
+	}
+
+	out := &corev1.ServiceAccountTokenProjection{
+		// Allowed fields
+		Audience:          in.Audience,
+		ExpirationSeconds: in.ExpirationSeconds,
+		Path:              in.Path,
+	}
 
 	return out
 }
@@ -158,8 +176,14 @@ func PodSpecMask(ctx context.Context, in *corev1.PodSpec) *corev1.PodSpec {
 	if cfg.Features.PodSpecAffinity != config.Disabled {
 		out.Affinity = in.Affinity
 	}
+	if cfg.Features.PodSpecHostAliases != config.Disabled {
+		out.HostAliases = in.HostAliases
+	}
 	if cfg.Features.PodSpecNodeSelector != config.Disabled {
 		out.NodeSelector = in.NodeSelector
+	}
+	if cfg.Features.PodSpecRuntimeClassName != config.Disabled {
+		out.RuntimeClassName = in.RuntimeClassName
 	}
 	if cfg.Features.PodSpecTolerations != config.Disabled {
 		out.Tolerations = in.Tolerations
@@ -184,12 +208,10 @@ func PodSpecMask(ctx context.Context, in *corev1.PodSpec) *corev1.PodSpec {
 	out.Hostname = ""
 	out.Subdomain = ""
 	out.SchedulerName = ""
-	out.HostAliases = nil
 	out.PriorityClassName = ""
 	out.Priority = nil
 	out.DNSConfig = nil
 	out.ReadinessGates = nil
-	out.RuntimeClassName = nil
 
 	return out
 }

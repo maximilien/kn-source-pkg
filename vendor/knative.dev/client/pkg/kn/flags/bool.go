@@ -25,8 +25,7 @@ import (
 )
 
 var (
-	negPrefix        = "no-"
-	deprecatedPrefix = "DEPRECATED:"
+	negPrefix = "no-"
 )
 
 // AddBothBoolFlagsUnhidden is just like AddBothBoolFlags but shows both flags.
@@ -67,19 +66,6 @@ func ReconcileBoolFlags(f *pflag.FlagSet) error {
 		// Return early from our comprehension
 		if err != nil {
 			return
-		}
-
-		// handle async flag
-		if flag.Name == "async" && flag.Changed {
-			if f.Lookup("wait").Changed || f.Lookup("no-wait").Changed {
-				err = fmt.Errorf("only one of (DEPRECATED) --async, --wait and --no-wait may be specified")
-				return
-			}
-			err = checkExplicitFalse(flag, "wait")
-			if err != nil {
-				return
-			}
-			f.Lookup("no-wait").Value.Set("true")
 		}
 
 		// Walk the "no-" versions of the flags. Make sure we didn't set

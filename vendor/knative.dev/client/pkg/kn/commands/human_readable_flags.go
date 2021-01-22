@@ -19,6 +19,7 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/duration"
 	hprinters "knative.dev/client/pkg/printers"
@@ -99,7 +100,7 @@ func NonReadyConditionReason(conditions duckv1.Conditions) string {
 			if condition.Message != "" {
 				return fmt.Sprintf("%s : %s", condition.Reason, condition.Message)
 			}
-			return string(condition.Reason)
+			return condition.Reason
 		}
 	}
 	return "<unknown>"
@@ -112,4 +113,9 @@ func TranslateTimestampSince(timestamp metav1.Time) string {
 		return "<unknown>"
 	}
 	return duration.HumanDuration(time.Since(timestamp.Time))
+}
+
+// AddGitOpsFlags adds flags to enable gitops mode
+func AddGitOpsFlags(flags *pflag.FlagSet) {
+	flags.String("target", "", "Work on local directory instead of a remote cluster (experimental)")
 }

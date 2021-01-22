@@ -29,10 +29,6 @@ Manage your Knative {{.Name}} eventing sources
 
 create {{.Name}} source
 
-#### Synopsis
-
-create {{.Name}} source
-
 ```
 source create NAME [flags]
 ```
@@ -49,7 +45,7 @@ source create NAME [flags]
   -A, --all-namespaces     If present, list the requested object(s) across all namespaces. Namespace in current context is ignored even if specified with --namespace.
   -h, --help               help for create
   -n, --namespace string   Specify the namespace to operate in.
-  -s, --sink string        Addressable sink for events. You can specify a broker, Knative service or URI. Examples: '--sink broker:nest' for a broker 'nest', '--sink https://event.receiver.uri' for an URI with an 'http://' or 'https://' schema, '--sink 'ksvc:receiver' or simply '--sink receiver' for a Knative service 'receiver'. If prefix is not provided, it is considered as a Knative service.
+  -s, --sink string        Addressable sink for events. You can specify a broker, channel, Knative service or URI. Examples: '--sink broker:nest' for a broker 'nest', '--sink channel:pipe' for a channel 'pipe', '--sink https://event.receiver.uri' for an URI with an 'http://' or 'https://' schema, '--sink ksvc:receiver' or simply '--sink receiver' for a Knative service 'receiver'. If a prefix is not provided, it is considered as a Knative service.
 ```
 
 #### SEE ALSO
@@ -57,10 +53,6 @@ source create NAME [flags]
 * [source](#source)	 - Knative eventing {{.Name}} source plugin
 
 ### source delete
-
-delete {{.Name}} source
-
-#### Synopsis
 
 delete {{.Name}} source
 
@@ -90,10 +82,6 @@ source delete NAME [flags]
 
 describe {{.Name}} source
 
-#### Synopsis
-
-describe {{.Name}} source
-
 ```
 source describe NAME [flags]
 ```
@@ -120,10 +108,6 @@ source describe NAME [flags]
 
 update {{.Name}} source
 
-#### Synopsis
-
-update {{.Name}} source
-
 ```
 source update NAME [flags]
 ```
@@ -140,7 +124,7 @@ source update NAME [flags]
   -A, --all-namespaces     If present, list the requested object(s) across all namespaces. Namespace in current context is ignored even if specified with --namespace.
   -h, --help               help for update
   -n, --namespace string   Specify the namespace to operate in.
-  -s, --sink string        Addressable sink for events. You can specify a broker, Knative service or URI. Examples: '--sink broker:nest' for a broker 'nest', '--sink https://event.receiver.uri' for an URI with an 'http://' or 'https://' schema, '--sink 'ksvc:receiver' or simply '--sink receiver' for a Knative service 'receiver'. If prefix is not provided, it is considered as a Knative service.
+  -s, --sink string        Addressable sink for events. You can specify a broker, channel, Knative service or URI. Examples: '--sink broker:nest' for a broker 'nest', '--sink channel:pipe' for a channel 'pipe', '--sink https://event.receiver.uri' for an URI with an 'http://' or 'https://' schema, '--sink ksvc:receiver' or simply '--sink receiver' for a Knative service 'receiver'. If a prefix is not provided, it is considered as a Knative service.
 ```
 
 #### SEE ALSO

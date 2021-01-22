@@ -1,18 +1,18 @@
 /*
- * Copyright 2020 The Knative Authors
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+Copyright 2020 The Knative Authors
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 
 package v1
 
@@ -77,7 +77,7 @@ func (ps *ParallelStatus) InitializeConditions() {
 // PropagateSubscriptionStatuses sets the ParallelConditionSubscriptionsReady based on
 // the status of the incoming subscriptions.
 func (ps *ParallelStatus) PropagateSubscriptionStatuses(filterSubscriptions []*messagingv1.Subscription, subscriptions []*messagingv1.Subscription) {
-	if ps.BranchStatuses == nil {
+	if ps.BranchStatuses == nil || len(subscriptions) != len(ps.BranchStatuses) {
 		ps.BranchStatuses = make([]ParallelBranchStatus, len(subscriptions))
 	}
 	allReady := true
@@ -136,7 +136,7 @@ func (ps *ParallelStatus) PropagateSubscriptionStatuses(filterSubscriptions []*m
 // PropagateChannelStatuses sets the ChannelStatuses and ParallelConditionChannelsReady based on the
 // status of the incoming channels.
 func (ps *ParallelStatus) PropagateChannelStatuses(ingressChannel *duckv1.Channelable, channels []*duckv1.Channelable) {
-	if ps.BranchStatuses == nil {
+	if ps.BranchStatuses == nil || len(channels) != len(ps.BranchStatuses) {
 		ps.BranchStatuses = make([]ParallelBranchStatus, len(channels))
 	}
 	allReady := true
