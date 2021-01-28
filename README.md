@@ -23,6 +23,7 @@ Manage your Knative {{.Name}} eventing sources
 * [source create](#source-create)	 - create {{.Name}} source
 * [source delete](#source-delete)	 - delete {{.Name}} source
 * [source describe](#source-describe)	 - describe {{.Name}} source
+* [source list](#source-list)	 - list {{.Name}} source
 * [source update](#source-update)	 - update {{.Name}} source
 
 ### source create
@@ -97,6 +98,32 @@ source describe NAME [flags]
 ```
   -A, --all-namespaces     If present, list the requested object(s) across all namespaces. Namespace in current context is ignored even if specified with --namespace.
   -h, --help               help for describe
+  -n, --namespace string   Specify the namespace to operate in.
+```
+
+#### SEE ALSO
+
+* [source](#source)	 - Knative eventing {{.Name}} source plugin
+
+### source list
+
+list {{.Name}} source
+
+```
+source list NAME [flags]
+```
+
+#### Examples
+
+```
+{{.ListExample}}
+```
+
+#### Options
+
+```
+  -A, --all-namespaces     If present, list the requested object(s) across all namespaces. Namespace in current context is ignored even if specified with --namespace.
+  -h, --help               help for list
   -n, --namespace string   Specify the namespace to operate in.
 ```
 

@@ -33,6 +33,12 @@ func TestSourceCommand(t *testing.T) {
 	assert.Assert(t, commandFactory.SourceCommand() != nil)
 }
 
+func TestListCommand(t *testing.T) {
+	commandFactory := NewDefaultCommandFactory(NewDefaultKnSourceFactory())
+
+	assert.Assert(t, commandFactory.ListCommand() != nil)
+}
+
 func TestCreateCommand(t *testing.T) {
 	commandFactory := NewDefaultCommandFactory(NewDefaultKnSourceFactory())
 

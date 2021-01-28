@@ -28,6 +28,12 @@ func TestNewDefaultRunEFactory(t *testing.T) {
 	assert.Assert(t, runEFactory != nil)
 }
 
+func TestListRunE(t *testing.T) {
+	runEFactory := createDefaultRunEFactory()
+
+	assert.Assert(t, runEFactory.ListRunE() != nil)
+}
+
 func TestCreateRunE(t *testing.T) {
 	runEFactory := createDefaultRunEFactory()
 

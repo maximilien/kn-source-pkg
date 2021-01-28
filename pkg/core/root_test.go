@@ -43,9 +43,9 @@ func TestNewKnSourceCommand(t *testing.T) {
 	assert.Equal(t, knSourceCmd.SilenceUsage, true)
 	assert.Equal(t, knSourceCmd.SilenceErrors, true)
 
-	testSubCommands(t, knSourceCmd, []string{"create", "update", "describe", "delete", "help"})
-	testSubCommandsRunE(t, knSourceCmd, []string{"create", "update", "describe", "delete", "help"})
-	testSubCommandsFlags(t, knSourceCmd, []string{"create", "update", "describe", "delete", "help"})
+	testSubCommands(t, knSourceCmd, []string{"list", "create", "update", "describe", "delete", "help"})
+	testSubCommandsRunE(t, knSourceCmd, []string{"list", "create", "update", "describe", "delete", "help"})
+	testSubCommandsFlags(t, knSourceCmd, []string{"list", "create", "update", "describe", "delete", "help"})
 }
 
 // Private test methods

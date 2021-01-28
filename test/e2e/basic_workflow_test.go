@@ -45,6 +45,9 @@ func TestBasicWorkflow(t *testing.T) {
 	err = it.KnPlugin().Install()
 	assert.NilError(t, err)
 
+	t.Log("kn-source_pkg list")
+	it.knSourceList(t, r)
+
 	t.Log("kn-source_pkg create 'source-name' with 'sink-name'")
 	it.knSourceCreate(t, r, "source-name", "sink-name")
 
@@ -62,6 +65,11 @@ func TestBasicWorkflow(t *testing.T) {
 }
 
 // Private
+func (it *E2ETest) knSourceList(t *testing.T, r *test.KnRunResultCollector) {
+	out := it.KnPlugin().Run("list")
+	r.AssertNoError(out)
+	assert.Check(t, util.ContainsAllIgnoreCase(out.Stdout, "list"))
+}
 
 func (it *E2ETest) knSourceCreate(t *testing.T, r *test.KnRunResultCollector, sourceName, sinkName string) {
 	out := it.KnPlugin().Run("create", sourceName, "--sink", sinkName)

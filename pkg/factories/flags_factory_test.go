@@ -26,6 +26,12 @@ func TestNewDefaultFlagsFactory(t *testing.T) {
 	assert.Assert(t, flagsFactory != nil)
 }
 
+func TestListFlags(t *testing.T) {
+	flagsFactory := NewDefaultFlagsFactory(NewDefaultKnSourceFactory())
+
+	assert.Assert(t, flagsFactory.ListFlags() != nil)
+}
+
 func TestCreateFlags(t *testing.T) {
 	flagsFactory := NewDefaultFlagsFactory(NewDefaultKnSourceFactory())
 
