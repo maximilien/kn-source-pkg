@@ -17,7 +17,7 @@ package source
 import (
 	"testing"
 
-	"gotest.tools/assert"
+	"gotest.tools/v3/assert"
 
 	"github.com/maximilien/kn-source-pkg/pkg/types"
 )
