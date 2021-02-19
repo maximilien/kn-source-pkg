@@ -17,7 +17,7 @@ package factories
 import (
 	"testing"
 
-	"gotest.tools/assert"
+	"gotest.tools/v3/assert"
 )
 
 func TestNewDefaultCommandFactory(t *testing.T) {

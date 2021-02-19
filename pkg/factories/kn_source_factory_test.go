@@ -18,7 +18,7 @@ import (
 	"testing"
 
 	"github.com/maximilien/kn-source-pkg/pkg/types"
-	"gotest.tools/assert"
+	"gotest.tools/v3/assert"
 	"k8s.io/client-go/rest"
 	"knative.dev/client/pkg/kn/commands/flags"
 
