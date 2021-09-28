@@ -1,3 +1,5 @@
+** NOTE ** This repo is no longer maintained. It is frozen and the code have moved to https://github.com/knative/client-pkg
+
 # source
 
 Knative Client plugin `source`
